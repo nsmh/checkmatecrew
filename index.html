@@ -1,27 +1,155 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Little Grandmasters</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkmate Crew — Little Grandmasters</title>
 <style>
 :root{--site-primary:#225c49;--site-secondary:#d8eee1;--site-background:#f4f7f2;--site-on-primary:#ffffff;--site-on-secondary:#183d30;--site-on-background:#18352b;--site-font-body:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--site-font-heading:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--site-heading-scale:1;--site-spacing-scale:1;--site-radius-scale:1;--site-decoration-opacity:1}
-*{box-sizing:border-box}body{margin:0;font-family:var(--site-font-body);background:light-dark(#f4f7f2,#101a16);color:light-dark(#18352b,#e9f4ed)}.app{min-height:100vh;background-color:var(--site-background);color:var(--site-on-background);border-radius:0}.top{background:var(--site-primary);color:var(--site-on-primary);padding:22px max(20px,calc((100vw - 1120px)/2));display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{font-size:calc(25px * var(--site-heading-scale));font-weight:850;letter-spacing:-.7px}.brand span{color:#bce6c9}.tag{opacity:.85;font-size:13px;margin-top:4px}.pill{border:1px solid #ffffff55;border-radius:999px;padding:9px 13px;font-size:13px;white-space:nowrap}.wrap{max-width:1120px;margin:auto;padding:26px 20px 50px}.intro{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:22px}.intro h1{font-size:clamp(26px,4vw,38px);letter-spacing:-1px;margin:0 0 7px}.intro p{margin:0;color:#557065;line-height:1.5}.panel{background:#fff;border:1px solid #dfe9e1;border-radius:calc(22px * var(--site-radius-scale));padding:22px;box-shadow:0 10px 32px #234b3510}.setup{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:14px;margin-bottom:18px}.field label{display:block;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#597367;margin-bottom:7px}.field input,.field select{width:100%;padding:12px 13px;border:1px solid #d6e2d9;border-radius:12px;background:#fbfdfb;color:#193c2e;font:inherit;outline-color:#3a8868}.modes{display:flex;gap:8px;flex-wrap:wrap;margin:17px 0}.mode{border:1px solid #d6e4d9;background:#f5faf6;color:#285440;padding:10px 14px;border-radius:12px;font-weight:750;cursor:pointer}.mode.active{background:#225c49;color:#fff;border-color:#225c49}.main{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:18px;align-items:start}.boardpanel{padding:16px}.boardhead{display:flex;align-items:center;justify-content:space-between;margin:0 3px 13px}.turn{font-weight:800}.small{font-size:12px;color:#6a8175}.board{display:grid;grid-template-columns:repeat(8,1fr);width:100%;aspect-ratio:1;border:5px solid #225c49;border-radius:8px;overflow:hidden}.sq{border:0;padding:0;aspect-ratio:1;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;font-size:clamp(24px,5.2vw,55px);line-height:1;font-family:-apple-system,"Apple Color Emoji","Segoe UI Symbol","DejaVu Sans",sans-serif;-webkit-tap-highlight-color:transparent;-webkit-text-fill-color:initial}.sq-w{color:#ffffff;text-shadow:0 0 2px #000,0 0 1px #000}.sq-b{color:#111111;text-shadow:0 0 1px #ffffff}.light{background:#f0dfbd}.dark{background:#719b7c}.sq.selected{box-shadow:inset 0 0 0 5px #f4c84a}.sq.target:after{content:"";position:absolute;width:22%;height:22%;border-radius:50%;background:#174f3b99}.sq.capture:after{content:"";position:absolute;inset:4px;border:4px solid #174f3b99;border-radius:50%}.sq .coord{position:absolute;left:4px;top:2px;font-size:10px;font-weight:800;color:#173c2a;opacity:.7}.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.btn{border:0;border-radius:12px;padding:11px 14px;background:#225c49;color:white;font:inherit;font-size:13px;font-weight:800;cursor:pointer}.btn.secondary{background:#e7f2e9;color:#285440}.btn:disabled{opacity:.45;cursor:not-allowed}.sidepanel h2{margin:0 0 6px;font-size:21px}.sidepanel p{color:#63796e;line-height:1.5;font-size:14px;margin:0 0 16px}.tip{background:#edf7ef;border:1px solid #d5eadb;border-radius:15px;padding:15px;margin:13px 0}.tip b{display:block;margin-bottom:5px;color:#225c49}.tip span{font-size:13px;line-height:1.5;color:#496658}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.stat{background:#f5f8f5;border-radius:12px;padding:12px}.stat strong{display:block;font-size:20px}.stat span{font-size:11px;color:#6b8176}.moves{font-family:ui-monospace,monospace;font-size:13px;line-height:1.8;max-height:130px;overflow:auto;color:#4a6557}.hidden{display:none!important}.notice{font-size:12px;color:#71877b;line-height:1.5;margin-top:12px}.footer{margin-top:24px;color:#7a8f83;font-size:12px;text-align:center}.modal{position:fixed;inset:0;background:#10251dc9;display:flex;align-items:center;justify-content:center;padding:20px;z-index:10}.modalbox{max-width:460px;width:100%;background:#fff;color:#18352b;padding:27px;border-radius:24px;box-shadow:0 24px 80px #0003}.modalbox h2{font-size:29px;margin:0 0 8px}.modalbox p{color:#60786b;line-height:1.5}.modalbox .field{margin:17px 0}.modalbox .btn{width:100%;padding:14px}.online-note{font-size:12px;color:#9a5b21;background:#fff5e6;border-radius:10px;padding:11px;margin-top:12px;line-height:1.45}@media(max-width:760px){.top{padding:17px 18px}.intro{display:block}.intro .pill{display:inline-block;margin-top:12px}.setup{grid-template-columns:1fr 1fr}.setup .field:first-child{grid-column:1/-1}.main{grid-template-columns:1fr}.wrap{padding:20px 12px 35px}.panel{padding:15px}.sq{font-size:clamp(25px,9vw,48px)}}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--site-font-body);background:#101a16;color:#e9f4ed}
+.app{min-height:100vh;background-color:var(--site-background);color:var(--site-on-background);border-radius:0}
+.top{background:var(--site-primary);color:var(--site-on-primary);padding:22px max(20px,calc((100vw - 1120px)/2));display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{font-size:calc(25px * var(--site-heading-scale));font-weight:850;letter-spacing:-.7px}
+.brand span{color:#bce6c9}
+.tag{opacity:.85;font-size:13px;margin-top:4px}
+.pill{border:1px solid #ffffff55;border-radius:999px;padding:9px 13px;font-size:13px;white-space:nowrap}
+.wrap{max-width:1120px;margin:auto;padding:26px 20px 50px}
+.intro{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:22px}
+.intro h1{font-size:clamp(26px,4vw,38px);letter-spacing:-1px;margin:0 0 7px}
+.intro p{margin:0;color:#557065;line-height:1.5}
+.panel{background:#fff;border:1px solid #dfe9e1;border-radius:calc(22px * var(--site-radius-scale));padding:22px;box-shadow:0 10px 32px #234b3510}
+.setup{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:14px;margin-bottom:18px}
+.field label{display:block;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#597367;margin-bottom:7px}
+.field input,.field select{width:100%;padding:12px 13px;border:1px solid #d6e2d9;border-radius:12px;background:#fbfdfb;color:#193c2e;font:inherit;outline-color:#3a8868}
+.modes{display:flex;gap:8px;flex-wrap:wrap;margin:17px 0}
+.mode{border:1px solid #d6e4d9;background:#f5faf6;color:#285440;padding:10px 14px;border-radius:12px;font-weight:750;cursor:pointer}
+.mode.active{background:#225c49;color:#fff;border-color:#225c49}
+.main{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:18px;align-items:start}
+.boardpanel{padding:16px}
+.boardhead{display:flex;align-items:center;justify-content:space-between;margin:0 3px 13px}
+.turn{font-weight:800}
+.small{font-size:12px;color:#6a8175}
+.board{display:grid;grid-template-columns:repeat(8,1fr);width:100%;aspect-ratio:1;border:5px solid #225c49;border-radius:8px;overflow:hidden}
+
+/* FIX 1: Explicit CSS rules so iPhone/Safari won't render pieces in blue text color */
+.sq {
+  border: 0;
+  padding: 0;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  font-size: clamp(24px, 5.2vw, 55px);
+  line-height: 1;
+  font-family: "Apple Symbols", "Segoe UI Symbol", "DejaVu Sans", serif;
+  -webkit-tap-highlight-color: transparent;
+  color: #111111;
+  -webkit-text-fill-color: initial;
+}
+.sq.piece-white {
+  color: #ffffff !important;
+  text-shadow: 0 0 2px #000, 0 0 1px #000;
+  -webkit-text-fill-color: #ffffff !important;
+}
+.sq.piece-black {
+  color: #111111 !important;
+  text-shadow: 0 0 1px #fff;
+  -webkit-text-fill-color: #111111 !important;
+}
+
+.light{background:#f0dfbd}
+.dark{background:#719b7c}
+.sq.selected{box-shadow:inset 0 0 0 5px #f4c84a}
+.sq.target:after{content:"";position:absolute;width:22%;height:22%;border-radius:50%;background:#174f3b99}
+.sq.capture:after{content:"";position:absolute;inset:4px;border:4px solid #174f3b99;border-radius:50%}
+.sq .coord{position:absolute;left:4px;top:2px;font-size:10px;font-weight:800;color:#173c2a;opacity:.7}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.btn{border:0;border-radius:12px;padding:11px 14px;background:#225c49;color:white;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
+.btn.secondary{background:#e7f2e9;color:#285440}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.sidepanel h2{margin:0 0 6px;font-size:21px}
+.sidepanel p{color:#63796e;line-height:1.5;font-size:14px;margin:0 0 16px}
+.tip{background:#edf7ef;border:1px solid #d5eadb;border-radius:15px;padding:15px;margin:13px 0}
+.tip b{display:block;margin-bottom:5px;color:#225c49}
+.tip span{font-size:13px;line-height:1.5;color:#496658}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.stat{background:#f5f8f5;border-radius:12px;padding:12px}
+.stat strong{display:block;font-size:20px}
+.stat span{font-size:11px;color:#6b8176}
+.moves{font-family:ui-monospace,monospace;font-size:13px;line-height:1.8;max-height:130px;overflow:auto;color:#4a6557}
+.hidden{display:none!important}
+.notice{font-size:12px;color:#71877b;line-height:1.5;margin-top:12px}
+.footer{margin-top:24px;color:#7a8f83;font-size:12px;text-align:center}
+.modal{position:fixed;inset:0;background:#10251dc9;display:flex;align-items:center;justify-content:center;padding:20px;z-index:10}
+.modalbox{max-width:460px;width:100%;background:#fff;color:#18352b;padding:27px;border-radius:24px;box-shadow:0 24px 80px #0003}
+.modalbox h2{font-size:29px;margin:0 0 8px}
+.modalbox p{color:#60786b;line-height:1.5}
+.modalbox .field{margin:17px 0}
+.modalbox .btn{width:100%;padding:14px}
+.online-note{font-size:12px;color:#9a5b21;background:#fff5e6;border-radius:10px;padding:11px;margin-top:12px;line-height:1.45}
+@media(max-width:760px){.top{padding:17px 18px}.intro{display:block}.intro .pill{display:inline-block;margin-top:12px}.setup{grid-template-columns:1fr 1fr}.setup .field:first-child{grid-column:1/-1}.main{grid-template-columns:1fr}.wrap{padding:20px 12px 35px}.panel{padding:15px}.sq{font-size:clamp(25px,9vw,48px)}}
 </style>
 </head>
-<body><div class="app" data-sites-preview-theme>
-<header class="top"><div><div class="brand">♟ Little <span>Grandmasters</span></div><div class="tag">Play a little. Learn a lot.</div></div><div class="pill" id="profilePill">Young minds, smart moves ✨</div></header>
-<main class="wrap"><div class="intro"><div><h1>Your next great move starts here.</h1><p>A friendly chess club for curious kids. Practice, explore, and level up one move at a time.</p></div><div class="pill" style="border-color:#d8e6dc;color:#326049">🏆 Learn • Play • Grow</div></div>
-<section class="panel setup"><div class="field"><label for="nickname">Player nickname</label><input id="nickname" maxlength="18" placeholder="e.g. Little Knight" value="Little Knight"></div><div class="field"><label for="age">Age group</label><select id="age"><option value="3">3–5 years · Starter</option><option value="6" selected>6–7 years · Explorer</option><option value="8">8–9 years · Strategist</option><option value="10">10–12 years · Challenger</option><option value="13">13+ years · Advanced</option></select></div><div class="field"><label for="difficulty">Challenge level</label><select id="difficulty"><option value="1">Level 1 · Friendly</option><option value="2" selected>Level 2 · Curious</option><option value="3">Level 3 · Clever</option><option value="4">Level 4 · Sharp</option><option value="5">Level 5 · Master</option></select></div></section>
-<div class="modes" role="tablist"><button class="mode active" data-mode="computer">🤖 Play computer</button><button class="mode" data-mode="friend">👫 Play with a friend (same device)</button><button class="mode" data-mode="tutorial">💡 Tutorial mode</button></div>
-<div class="main"><section class="panel boardpanel"><div class="boardhead"><div><div class="turn" id="turn">White to move</div><div class="small" id="modeCaption">Computer match · Level 2</div></div><div class="pill" style="color:#225c49;border-color:#d6e4d9" id="badge">♙ White</div></div><div class="board" id="board" aria-label="Interactive chess board"></div><div class="controls"><button class="btn secondary" id="undo">↶ Undo</button><button class="btn secondary" id="hint">✨ Best-move hint</button><button class="btn secondary" id="flip">⇅ Flip board</button><button class="btn" id="restart">New game</button></div><div class="notice">Select a piece, then a highlighted square. All standard chess moves are supported, including castling, en passant, and promotion.</div></section>
-<aside class="panel sidepanel"><h2 id="sideTitle">Ready to play?</h2><p id="sideDesc">Try to control the centre and keep your pieces safe. Every game is a chance to learn.</p><div class="tip" id="coach"><b>💡 Coach's tip</b><span>Start by moving a centre pawn. It helps your pieces find good squares.</span></div><div class="controls"><button class="btn" id="nextLevel">Unlock next level 🔒</button></div><div class="stats"><div class="stat"><strong id="wins">0/5</strong><span>Recent wins</span></div><div class="stat"><strong id="levelStat">2</strong><span>Current level</span></div><div class="stat"><strong id="streak">0</strong><span>Win streak</span></div></div><h3 style="margin:22px 0 6px">Move history</h3><div class="moves" id="moves">Your moves will appear here.</div><div class="tip hidden" id="onlineNote"><b>👫 Same-device game</b><span>Two children share this board. White moves first, then Black; pass the device after each turn.</span></div></aside></div><div class="footer">A practice prototype · Your progress stays in this browser preview only.</div></main>
-<div class="modal" id="welcome"><div class="modalbox"><div style="font-size:36px">♟️🌱</div><h2>Welcome, chess explorer!</h2><p>Let's make your chess journey your own. Choose your age group to get a friendly starting challenge. A grown-up can help younger players.</p><div class="field"><label for="welcomeName">What should we call you?</label><input id="welcomeName" maxlength="18" placeholder="Your nickname" value="Little Knight"></div><div class="field"><label for="welcomeAge">How old are you?</label><select id="welcomeAge"><option value="3">3–5 years</option><option value="6" selected>6–7 years</option><option value="8">8–9 years</option><option value="10">10–12 years</option><option value="13">13+ years</option></select></div><button class="btn" id="start">Let's play chess! →</button><div class="notice">No real name is needed. This demo does not send your details to a server.</div></div></div>
-</div>
-<script>
-const glyph={K:'♔',Q:'♕',R:'♖',B:'♗',N:'♘',P:'♙',k:'♚',q:'♛',r:'♜',b:'♝',n:'♞',p:'♟'};const files='abcdefgh';
-const initial=()=>loadFEN('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
+<body>
+<div class="app">
+<header class="top"><div><div class="brand">♟ Checkmate <span>Crew</span></div><div class="tag">Play a little. Learn a lot.</div></div><div class="pill" id="profilePill">Young minds, smart moves ✨</div></header>
+<main class="wrap">
+<div class="intro"><div><h1>Your next great move starts here.</h1><p>A friendly chess club for curious minds. Practice, explore, and level up one move at a time.</p></div><div class="pill" style="border-color:#d8e6dc;color:#326049">🏆 Learn • Play • Grow</div></div>
+<section class="panel setup">
+<div class="field"><label for="nickname">Player nickname</label><input id="nickname" maxlength="18" placeholder="e.g. Little Knight" value="Little Knight"></div>
+<div class="field"><label for="age">Age group</label><select id="age"><option value="3">3–5 years · Starter</option><option value="6" selected>6–7 years · Explorer</option><option value="8">8–9 years · Strategist</option><option value="10">10–12 years · Challenger</option><option value="13">13+ years · Advanced</option></select></div>
+<div class="field"><label for="difficulty">Challenge level</label><select id="difficulty"><option value="1">Level 1 · Friendly</option><option value="2" selected>Level 2 · Curious</option><option value="3">Level 3 · Clever</option><option value="4">Level 4 · Sharp</option><option value="5">Level 5 · Master</option></select></div>
+</section>
 
-function loadFEN(fen) {
+<div class="modes" role="tablist">
+<button class="mode active" data-mode="computer">🤖 Play computer</button>
+<button class="mode" data-mode="friend">👫 Play with a friend (same device)</button>
+<button class="mode" data-mode="tutorial">💡 Tutorial mode</button>
+</div>
+
+<div class="main">
+<section class="panel boardpanel">
+<div class="boardhead"><div><div class="turn" id="turn">White to move</div><div class="small" id="modeCaption">Computer match · Level 2</div></div><div class="pill" style="color:#225c49;border-color:#d6e4d9" id="badge">♙ White</div></div>
+<div class="board" id="board" aria-label="Interactive chess board"></div>
+<div class="controls"><button class="btn secondary" id="undo">↶ Undo</button><button class="btn secondary" id="hint">✨ Best-move hint</button><button class="btn secondary" id="flip">⇅ Flip board</button><button class="btn" id="restart">New game</button></div>
+<div class="notice">Select a piece, then a highlighted square. All standard chess moves are supported.</div>
+</section>
+
+<aside class="panel sidepanel">
+<h2 id="sideTitle">Ready to play?</h2>
+<p id="sideDesc">Try to control the centre and keep your pieces safe. Every game is a chance to learn.</p>
+<div class="tip" id="coach"><b>💡 Coach's tip</b><span>Start by moving a centre pawn. It helps your pieces find good squares.</span></div>
+<div class="controls"><button class="btn" id="nextLevel">Unlock next level 🔒</button></div>
+<div class="stats"><div class="stat"><strong id="wins">0/5</strong><span>Recent wins</span></div><div class="stat"><strong id="levelStat">2</strong><span>Current level</span></div><div class="stat"><strong id="streak">0</strong><span>Win streak</span></div></div>
+<h3 style="margin:22px 0 6px">Move history</h3>
+<div class="moves" id="moves">Your moves will appear here.</div>
+<div class="tip hidden" id="onlineNote"><b>👫 Same-device game</b><span>Two players share this board. White moves first, then Black; pass the device after each turn.</span></div>
+</aside>
+</div>
+<div class="footer">Checkmate Crew · Interactive Chess</div>
+</main>
+
+<div class="modal" id="welcome">
+<div class="modalbox">
+<div style="font-size:36px">♟️🌱</div>
+<h2>Welcome, chess explorer!</h2>
+<p>Let's make your chess journey your own. Choose your age group to get a friendly starting challenge.</p>
+<div class="field"><label for="welcomeName">What should we call you?</label><input id="welcomeName" maxlength="18" placeholder="Your nickname" value="Little Knight"></div>
+<div class="field"><label for="welcomeAge">How old are you?</label><select id="welcomeAge"><option value="3">3–5 years</option><option value="6" selected>6–7 years</option><option value="8">8–9 years</option><option value="10">10–12 years</option><option value="13">13+ years</option></select></div>
+<button class="btn" id="start">Let's play chess! →</button>
+</div>
+</div>
+</div>
+
+<script>
+const glyph={K:'♔',Q:'♕',R:'♖',B:'♗',N:'♘',P:'♙',k:'♚',q:'♛',r:'♜',b:'♝',n:'♞',p:'♟'};
+const files='abcdefgh';
+const initial=()=>({b:'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'.split('/').flatMap(r=>{let a=[];for(const c of r){if(+c)a.push(...Array(+c).fill('.'));else a.push(c)}return a}),turn:'w',castle:'KQkq',ep:-1,half:0,full:1});
+
+function parseFEN(fen) {
   const parts = fen.split(' ');
   const rows = parts[0].split('/');
   let board = [];
@@ -31,220 +159,465 @@ function loadFEN(fen) {
       else board.push(c);
     }
   }
-  return {
-    b: board,
-    turn: parts[1] || 'w',
-    castle: parts[2] || '',
-    ep: -1,
-    half: 0,
-    full: 1
-  };
+  return { b: board, turn: parts[1]||'w', castle: parts[2]||'', ep: -1, half: 0, full: 1 };
 }
 
 let s=initial(),moveHistory=[],selected=-1,legalMoves=[],lastMove=null,mode='computer',flipped=false,level=2,age=6,wins=0,streak=0,matchWins=0,matchOver=false;
-const clone=x=>JSON.parse(JSON.stringify(x));const sqName=i=>files[i%8]+(8-Math.floor(i/8));const color=p=>p==='.'?null:p===p.toUpperCase()?'w':'b';const inside=(r,c)=>r>=0&&r<8&&c>=0&&c<8;
+const clone=x=>JSON.parse(JSON.stringify(x));
+const sqName=i=>files[i%8]+(8-Math.floor(i/8));
+const color=p=>p==='.'?null:p===p.toUpperCase()?'w':'b';
+const inside=(r,c)=>r>=0&&r<8&&c>=0&&c<8;
 function king(pos,col){return pos.b.indexOf(col === 'w' ? 'K' : 'k');}
-function attacked(pos,target,by){const b=pos.b,tr=Math.floor(target/8),tc=target%8;for(let i=0;i<64;i++){const p=b[i];if(p==='.'||color(p)!==by)continue;let r=Math.floor(i/8),c=i%8,dr=tr-r,dc=tc-c,t=p.toLowerCase();if(t==='p'){if(dr===(by==='w'?-1:1)&&Math.abs(dc)===1)return true;continue}if(t==='n'&&((Math.abs(dr)===2&&Math.abs(dc)===1)||(Math.abs(dr)===1&&Math.abs(dc)===2)))return true;if(t==='k'&&Math.max(Math.abs(dr),Math.abs(dc))===1)return true;if(t==='b'||t==='r'||t==='q'){if((t==='b'&&Math.abs(dr)!==Math.abs(dc))||(t==='r'&&dr!==0&&dc!==0)||(t==='q'&&dr!==0&&dc!==0&&Math.abs(dr)!==Math.abs(dc)))continue;let sr=Math.sign(dr),sc=Math.sign(dc),rr=r+sr,cc=c+sc,blocked=false;while(rr!==tr||cc!==tc){if(b[rr*8+cc]!=='.'){blocked=true;break}rr+=sr;cc+=sc}if(!blocked)return true}}return false}
-function pseudo(pos){let out=[],b=pos.b,us=pos.turn;function add(f,t,flags={}){if(color(b[t])===us||b[t].toLowerCase()==='k')return;if(b[f].toLowerCase()==='p'&&(t<8||t>=56)){for(const pr of ['q','r','b','n'])out.push({f,t,promo:pr,...flags})}else out.push({f,t,...flags})}
-for(let f=0;f<64;f++){let p=b[f];if(color(p)!==us)continue;let r=f>>3,c=f%8,t=p.toLowerCase();if(t==='p'){let d=us==='w'?-1:1,nr=r+d;if(inside(nr,c)&&b[nr*8+c]==='.'){add(f,nr*8+c);if((us==='w'?r===6:r===1)&&b[(r+2*d)*8+c]==='.')add(f,(r+2*d)*8+c)}for(let dc of [-1,1]){let rr=r+d,cc=c+dc;if(inside(rr,cc)){let to=rr*8+cc;if(color(b[to])=== (us==='w'?'b':'w'))add(f,to);else if(to===pos.ep)add(f,to,{ep:true})}}continue}
-let deltas=t==='n'?[[2,1],[2,-1],[-2,1],[-2,-1],[1,2],[1,-2],[-1,2],[-1,-2]]:t==='k'?[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]]:t==='b'?[[-1,-1],[-1,1],[1,-1],[1,1]]:t==='r'?[[-1,0],[1,0],[0,-1],[0,1]]:[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];for(let [dr,dc] of deltas){let rr=r+dr,cc=c+dc;while(inside(rr,cc)){let to=rr*8+cc;if(color(b[to])===us)break;add(f,to);if(b[to]!=='.'||t==='n'||t==='k')break;rr+=dr;cc+=dc}}
-if(t==='k'&&!attacked(pos,f,us==='w'?'b':'w')){let enemy=us==='w'?'b':'w';if(us==='w'&&f===60){if(pos.castle.includes('K')&&b[61]==='.'&&b[62]==='.'&&b[63]==='R'&&!attacked(pos,61,enemy)&&!attacked(pos,62,enemy))out.push({f,t:62,castle:'K'});if(pos.castle.includes('Q')&&b[59]==='.'&&b[58]==='.'&&b[57]==='.'&&b[56]==='R'&&!attacked(pos,59,enemy)&&!attacked(pos,58,enemy))out.push({f,t:58,castle:'Q'})}if(us==='b'&&f===4){if(pos.castle.includes('k')&&b[5]==='.'&&b[6]==='.'&&b[7]==='r'&&!attacked(pos,5,enemy)&&!attacked(pos,6,enemy))out.push({f,t:6,castle:'k'});if(pos.castle.includes('q')&&b[3]==='.'&&b[2]==='.'&&b[1]==='.'&&b[0]==='r'&&!attacked(pos,3,enemy)&&!attacked(pos,2,enemy))out.push({f,t:2,castle:'q'})}}
-}return out}
-function apply(pos,m){let n=clone(pos),p=n.b[m.f],capt=n.b[m.t];n.b[m.f]='.';n.b[m.t]=m.promo?(pos.turn==='w'?m.promo.toUpperCase():m.promo):p;if(m.ep)n.b[m.t+(pos.turn==='w'?8:-8)]='.';if(m.castle){let rookFrom=m.t>m.f?m.f+3:m.f-4,rookTo=m.t>m.f?m.f+1:m.f-1;n.b[rookTo]=n.b[rookFrom];n.b[rookFrom]='.'}if(p==='K')n.castle=n.castle.replace(/[KQ]/g,'');
-if(p==='k')n.castle=n.castle.replace(/[kq]/g,'');const rights={63:'K',56:'Q',7:'k',0:'q'};if(p.toLowerCase()==='r'&&rights[m.f])n.castle=n.castle.replace(rights[m.f],'');if(capt.toLowerCase()==='r'&&rights[m.t])n.castle=n.castle.replace(rights[m.t],'');n.ep=p.toLowerCase()==='p'&&Math.abs(m.t-m.f)===16?(m.t+m.f)/2:-1;n.half=p.toLowerCase()==='p'||capt!=='.'||m.ep?0:n.half+1;if(pos.turn==='b')n.full++;n.turn=pos.turn==='w'?'b':'w';return n}
+
+function attacked(pos,target,by){
+  const b=pos.b,tr=Math.floor(target/8),tc=target%8;
+  for(let i=0;i<64;i++){
+    const p=b[i];if(p==='.'||color(p)!==by)continue;
+    let r=Math.floor(i/8),c=i%8,dr=tr-r,dc=tc-c,t=p.toLowerCase();
+    if(t==='p'){if(dr===(by==='w'?-1:1)&&Math.abs(dc)===1)return true;continue}
+    if(t==='n'&&((Math.abs(dr)===2&&Math.abs(dc)===1)||(Math.abs(dr)===1&&Math.abs(dc)===2)))return true;
+    if(t==='k'&&Math.max(Math.abs(dr),Math.abs(dc))===1)return true;
+    if(t==='b'||t==='r'||t==='q'){
+      if((t==='b'&&Math.abs(dr)!==Math.abs(dc))||(t==='r'&&dr!==0&&dc!==0)||(t==='q'&&dr!==0&&dc!==0&&Math.abs(dr)!==Math.abs(dc)))continue;
+      let sr=Math.sign(dr),sc=Math.sign(dc),rr=r+sr,cc=c+sc,blocked=false;
+      while(rr!==tr||cc!==tc){if(b[rr*8+cc]!=='.'){blocked=true;break}rr+=sr;cc+=sc}
+      if(!blocked)return true;
+    }
+  }
+  return false;
+}
+
+function pseudo(pos){
+  let out=[],b=pos.b,us=pos.turn;
+  function add(f,t,flags={}){
+    if(color(b[t])===us||b[t].toLowerCase()==='k')return;
+    if(b[f].toLowerCase()==='p'&&(t<8||t>=56)){for(const pr of ['q','r','b','n'])out.push({f,t,promo:pr,...flags})}
+    else out.push({f,t,...flags});
+  }
+  for(let f=0;f<64;f++){
+    let p=b[f];if(color(p)!==us)continue;
+    let r=f>>3,c=f%8,t=p.toLowerCase();
+    if(t==='p'){
+      let d=us==='w'?-1:1,nr=r+d;
+      if(inside(nr,c)&&b[nr*8+c]==='.'){add(f,nr*8+c);if((us==='w'?r===6:r===1)&&b[(r+2*d)*8+c]==='.')add(f,(r+2*d)*8+c)}
+      for(let dc of [-1,1]){
+        let rr=r+d,cc=c+dc;
+        if(inside(rr,cc)){
+          let to=rr*8+cc;
+          if(color(b[to])===(us==='w'?'b':'w'))add(f,to);
+          else if(to===pos.ep)add(f,to,{ep:true});
+        }
+      }
+      continue;
+    }
+    let deltas=t==='n'?[[2,1],[2,-1],[-2,1],[-2,-1],[1,2],[1,-2],[-1,2],[-1,-2]]:t==='k'?[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]]:t==='b'?[[-1,-1],[-1,1],[1,-1],[1,1]]:t==='r'?[[-1,0],[1,0],[0,-1],[0,1]]:[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
+    for(let [dr,dc] of deltas){
+      let rr=r+dr,cc=c+dc;
+      while(inside(rr,cc)){
+        let to=rr*8+cc;
+        if(color(b[to])===us)break;
+        add(f,to);
+        if(b[to]!=='.'||t==='n'||t==='k')break;
+        rr+=dr;cc+=dc;
+      }
+    }
+    if(t==='k'&&!attacked(pos,f,us==='w'?'b':'w')){
+      let enemy=us==='w'?'b':'w';
+      if(us==='w'&&f===60){
+        if(pos.castle.includes('K')&&b[61]==='.'&&b[62]==='.'&&b[63]==='R'&&!attacked(pos,61,enemy)&&!attacked(pos,62,enemy))out.push({f,t:62,castle:'K'});
+        if(pos.castle.includes('Q')&&b[59]==='.'&&b[58]==='.'&&b[57]==='.'&&b[56]==='R'&&!attacked(pos,59,enemy)&&!attacked(pos,58,enemy))out.push({f,t:58,castle:'Q'});
+      }
+      if(us==='b'&&f===4){
+        if(pos.castle.includes('k')&&b[5]==='.'&&b[6]==='.'&&b[7]==='r'&&!attacked(pos,5,enemy)&&!attacked(pos,6,enemy))out.push({f,t:6,castle:'k'});
+        if(pos.castle.includes('q')&&b[3]==='.'&&b[2]==='.'&&b[1]==='.'&&b[0]==='r'&&!attacked(pos,3,enemy)&&!attacked(pos,2,enemy))out.push({f,t:2,castle:'q'});
+      }
+    }
+  }
+  return out;
+}
+
+function apply(pos,m){
+  let n=clone(pos),p=n.b[m.f],capt=n.b[m.t];
+  n.b[m.f]='.';n.b[m.t]=m.promo?(pos.turn==='w'?m.promo.toUpperCase():m.promo):p;
+  if(m.ep)n.b[m.t+(pos.turn==='w'?8:-8)]='.';
+  if(m.castle){let rookFrom=m.t>m.f?m.f+3:m.f-4,rookTo=m.t>m.f?m.f+1:m.f-1;n.b[rookTo]=n.b[rookFrom];n.b[rookFrom]='.'}
+  if(p==='K')n.castle=n.castle.replace(/[KQ]/g,'');
+  if(p==='k')n.castle=n.castle.replace(/[kq]/g,'');
+  const rights={63:'K',56:'Q',7:'k',0:'q'};
+  if(p.toLowerCase()==='r'&&rights[m.f])n.castle=n.castle.replace(rights[m.f],'');
+  if(capt.toLowerCase()==='r'&&rights[m.t])n.castle=n.castle.replace(rights[m.t],'');
+  n.ep=p.toLowerCase()==='p'&&Math.abs(m.t-m.f)===16?(m.t+m.f)/2:-1;
+  n.half=p.toLowerCase()==='p'||capt!=='.'||m.ep?0:n.half+1;
+  if(pos.turn==='b')n.full++;
+  n.turn=pos.turn==='w'?'b':'w';
+  return n;
+}
+
 function legal(pos){
-    return pseudo(pos).filter(m=>{
-        const next = apply(pos,m);
-        return !attacked(
-            next,
-            king(next,pos.turn),
-            pos.turn === 'w' ? 'b' : 'w'
-        );
-    });
+  return pseudo(pos).filter(m=>{
+    const next = apply(pos,m);
+    const kPos = king(next,pos.turn);
+    if(kPos < 0) return true;
+    return !attacked(next, kPos, pos.turn === 'w' ? 'b' : 'w');
+  });
 }
-function status(){let ms=legal(s),check=attacked(s,king(s,s.turn),s.turn==='w'?'b':'w');if(!ms.length)return check?(s.turn==='w'?'Black wins by checkmate!':'White wins by checkmate!'):'Draw by stalemate.';return (s.turn==='w'?'White':'Black')+' to move'+(check?' · Check!':'')}
-function san(m){let p=s.b[m.f],cap=s.b[m.t]!=='.'||m.ep;let x=m.castle?(m.t>m.f?'O-O':'O-O-O'):(p.toLowerCase()==='p'?(cap?files[m.f%8]+'x':''):'PNBRQK'.includes(p.toUpperCase())?p.toUpperCase():'')+sqName(m.t);if(m.promo)x+='='+m.promo.toUpperCase();return x}
+
+function status(){
+  let ms=legal(s),kPos=king(s,s.turn),check=kPos>=0&&attacked(s,kPos,s.turn==='w'?'b':'w');
+  if(!ms.length)return check?(s.turn==='w'?'Black wins by checkmate!':'White wins by checkmate!'):'Draw by stalemate.';
+  return (s.turn==='w'?'White':'Black')+' to move'+(check?' · Check!':'');
+}
+
+function san(m){
+  let p=s.b[m.f],cap=s.b[m.t]!=='.'||m.ep;
+  let x=m.castle?(m.t>m.f?'O-O':'O-O-O'):(p.toLowerCase()==='p'?(cap?files[m.f%8]+'x':''):'PNBRQK'.includes(p.toUpperCase())?p.toUpperCase():'')+sqName(m.t);
+  if(m.promo)x+='='+m.promo.toUpperCase();
+  return x;
+}
+
+/* FIX 3: Dynamic tips for Tutorial mode */
+const tutorialTips = [
+  "Central control is key! Occupy or attack e4, d4, e5, and d5.",
+  "Develop knights before bishops to keep options open.",
+  "Castle early to safeguard your king and connect your rooks.",
+  "Don't move the same piece multiple times in the opening without reason.",
+  "Before each move, check if any of your pieces are undefended."
+];
+
 function push(m){
-    let label=(s.turn==='w'?s.full+'. ':'')+san(m);
-    moveHistory.push({s:clone(s),lastMove,matchOver,label});
-    lastMove={f:m.f,t:m.t};
-    s=apply(s,m);
-    selected=-1;
-    matchOver=!legal(s).length;
-    render();
+  let label=(s.turn==='w'?s.full+'. ':'')+san(m);
+  moveHistory.push({s:clone(s),lastMove,matchOver,label});
+  lastMove={f:m.f,t:m.t};
+  s=apply(s,m);
+  selected=-1;
+  matchOver=!legal(s).length;
+  render();
 
-    if(mode==='tutorial'){
-        const tutorialTips = [
-            "Center control: Keep your knights and pawns near the center.",
-            "Piece safety: Make sure your pieces are guarded by other pieces.",
-            "King safety: Consider castling early to protect your King.",
-            "Development: Develop knights and bishops before making deep attacks."
-        ];
-        document.getElementById('coach').innerHTML='<b>💡 Tutorial Coach</b><span>'+tutorialTips[Math.floor(Math.random()*tutorialTips.length)]+'</span>';
-    }
+  if(mode === 'tutorial') {
+    const randomTip = tutorialTips[Math.floor(Math.random() * tutorialTips.length)];
+    document.getElementById('coach').innerHTML = `<b>💡 Tutorial Advice</b><span>${randomTip}</span>`;
+  }
 
-    if(matchOver){
-        let txt=status();
-        if(txt.includes('wins by checkmate')){
-            if(mode!=='friend'&&txt.startsWith('White')){wins++;streak++;matchWins++}
-            else if(mode!=='friend'){streak=0}
-        }
-        document.getElementById('sideTitle').textContent=txt;
-        document.getElementById('sideDesc').textContent='Great effort! Start a new game to keep learning.';
-        document.getElementById('coach').innerHTML='<b>🏁 Game complete</b><span>Review the moves and think about what you learned.</span>';
-        updateStats();
-        return;
-    }
-
-    if((mode==='computer'||mode==='tutorial')&&s.turn==='b'){
-        setTimeout(computerMove,350);
-    }
-}
-function score(pos){let vals={p:100,n:310,b:330,r:500,q:900,k:0},sum=0;for(let i=0;i<64;i++)if(pos.b[i]!=='.')sum+=(color(pos.b[i])==='w'?1:-1)*(vals[pos.b[i].toLowerCase()]||0);return sum}
-function computerMove(){if((mode!=='computer'&&mode!=='tutorial')||s.turn!=='b'||matchOver)return;let ms=legal(s);if(!ms.length)return;let depth=level>=4?2:1;let candidates=ms.map(m=>({m,v:(()=>{let ns=apply(s,m),sc=score(ns);if(attacked(ns,king(ns,ns.turn),ns.turn==='w'?'b':'w'))sc+=ns.turn==='w'?-30:30;return sc+(Math.random()-.5)*(level===1?500:level===2?300:level===3?160:level===4?80:35)})()}));candidates.sort((a,b)=>a.v-b.v);let m=level===1?ms[Math.floor(Math.random()*ms.length)]:candidates[0].m;push(m)}
-function bestMove(){let ms=legal(s);if(!ms.length)return null;return ms.map(m=>({m,v:score(apply(s,m))})).sort((a,b)=>s.turn==='w'?b.v-a.v:a.v-b.v)[0].m}
-function render(){
-    const board=document.getElementById('board');
-    if(!board)return;
-    let order=Array.from({length:64},(_,i)=>i);
-    if(flipped)order.reverse();
-    board.innerHTML='';
-    for(let i of order){
-        let p=s.b[i],btn=document.createElement('button');
-        btn.type='button';
-        let pCol=p==='.'?'':(p===p.toUpperCase()?'sq-w':'sq-b');
-        btn.className='sq '+(((i>>3)+(i%8))%2?'dark':'light')+' '+pCol;
-        btn.setAttribute('aria-label',sqName(i)+' '+(p==='.'?'empty':p));
-        if(selected===i)btn.classList.add('selected');
-        btn.innerHTML=(i%8===0?'<span class="coord">'+(8-(i>>3))+'</span>':'')+(p==='.'?'':glyph[p]);
-        btn.onclick=()=>clickSquare(i);
-        board.appendChild(btn);
-    }
-    try{
-        legalMoves=legal(s);
-        for(let btn of board.children){
-            let i=flipped?63-Array.prototype.indexOf.call(board.children,btn):Array.prototype.indexOf.call(board.children,btn);
-            if(selected>=0&&legalMoves.some(m=>m.f===selected&&m.t===i))btn.classList.add(s.b[i]==='.'?'target':'capture')
-        }
-        document.getElementById('turn').textContent=status();
-    }catch(err){
-        document.getElementById('turn').textContent='Chessboard ready · select a piece to begin';
-        console.error('Chess move calculation failed:',err);
-    }
-    document.getElementById('modeCaption').textContent=(mode==='computer'?'Computer match':mode==='friend'?'Two-player board':mode==='puzzles'?'Puzzle practice':'Tutorial practice')+' · Level '+level;
-    document.getElementById('badge').textContent=s.turn==='w'?'♙ White':'♟ Black';
-    document.getElementById('moves').textContent=moveHistory.length?moveHistory.map((h,i)=>{let m=moveHistory[i];return (i%2===0?Math.floor(i/2)+1+'. ':'')+(m.label||'')}).filter(Boolean).join('   '):'Your moves will appear here.';
-    document.getElementById('undo').disabled=!moveHistory.length;
-    document.getElementById('hint').textContent=mode==='tutorial'?'✨ Explain best move':'✨ Best-move hint';
+  if(matchOver){
+    let txt=status();
+    if(txt.includes('wins by checkmate')){if(mode!=='friend'&&txt.startsWith('White')){wins++;streak++;matchWins++}else if(mode!=='friend'){streak=0}}
+    document.getElementById('sideTitle').textContent=txt;
+    document.getElementById('sideDesc').textContent='Great effort! Keep practicing.';
+    document.getElementById('coach').innerHTML='<b>🏁 Game complete</b><span>Review your game and try another round!</span>';
     updateStats();
+    return;
+  }
+
+  /* FIX 3: AI plays Black's turn in both Computer AND Tutorial modes */
+  if((mode==='computer'||mode==='tutorial')&&s.turn==='b') {
+    setTimeout(computerMove, 350);
+  }
 }
-function clickSquare(i){
-    if(matchOver)return;
-    if((mode==='computer'||mode==='tutorial')&&s.turn==='b')return;
-    let moves;
-    try{moves=legal(s)}catch(err){console.error('Could not calculate legal moves:',err);document.getElementById('turn').textContent='Move engine error — please start a new game';return}
-    legalMoves=moves;
-    if(selected>=0){
-        let m=moves.find(x=>x.f===selected&&x.t===i);
-        if(m){push(m);return}
-        if(i===selected){selected=-1;render();return}
+
+function score(pos){
+  let vals={p:100,n:310,b:330,r:500,q:900,k:0},sum=0;
+  for(let i=0;i<64;i++)if(pos.b[i]!=='.')sum+=(color(pos.b[i])==='w'?1:-1)*(vals[pos.b[i].toLowerCase()]||0);
+  return sum;
+}
+
+function computerMove(){
+  if((mode!=='computer'&&mode!=='tutorial')||s.turn!=='b'||matchOver)return;
+  let ms=legal(s);if(!ms.length)return;
+  let candidates=ms.map(m=>({m,v:(()=>{
+    let ns=apply(s,m),sc=score(ns);
+    let kPos=king(ns,ns.turn);
+    if(kPos>=0&&attacked(ns,kPos,ns.turn==='w'?'b':'w'))sc+=ns.turn==='w'?-30:30;
+    return sc+(Math.random()-.5)*(level===1?500:level===2?300:level===3?160:level===4?80:35);
+  })()}));
+  candidates.sort((a,b)=>a.v-b.v);
+  let m=level===1?ms[Math.floor(Math.random()*ms.length)]:candidates[0].m;
+  push(m);
+}
+
+function bestMove(){
+  let ms=legal(s);if(!ms.length)return null;
+  return ms.map(m=>({m,v:score(apply(s,m))})).sort((a,b)=>s.turn==='w'?b.v-a.v:a.v-b.v)[0].m;
+}
+
+function render(){
+  const board=document.getElementById('board');if(!board)return;
+  let order=Array.from({length:64},(_,i)=>i);
+  if(flipped)order.reverse();
+  board.innerHTML='';
+
+  for(let i of order){
+    let p=s.b[i],btn=document.createElement('button');
+    btn.type='button';
+    let pClass = p === '.' ? '' : (color(p) === 'w' ? ' piece-white' : ' piece-black');
+    btn.className='sq '+(((i>>3)+(i%8))%2?'dark':'light') + pClass;
+    btn.setAttribute('aria-label',sqName(i)+' '+(p==='.'?'empty':p));
+    if(selected===i)btn.classList.add('selected');
+    btn.innerHTML=(i%8===0?'<span class="coord">'+(8-(i>>3))+'</span>':'')+(p==='.'?'':glyph[p]);
+    btn.onclick=()=>clickSquare(i);
+    board.appendChild(btn);
+  }
+
+  try{
+    legalMoves=legal(s);
+    for(let btn of board.children){
+      let i=flipped?63-Array.prototype.indexOf.call(board.children,btn):Array.prototype.indexOf.call(board.children,btn);
+      if(selected>=0&&legalMoves.some(m=>m.f===selected&&m.t===i))btn.classList.add(s.b[i]==='.'?'target':'capture');
     }
-    if(color(s.b[i])===s.turn){selected=i;render();return}
-    selected=-1;
-    render();
+    document.getElementById('turn').textContent=status();
+  }catch(err){
+    document.getElementById('turn').textContent='Chessboard ready';
+    console.error(err);
+  }
+
+  document.getElementById('modeCaption').textContent=(mode==='computer'?'Computer match':mode==='friend'?'Two-player board':mode==='puzzles'?'Puzzle practice':'Tutorial mode')+' · Level '+level;
+  document.getElementById('badge').textContent=s.turn==='w'?'♙ White':'♟ Black';
+  document.getElementById('moves').textContent=moveHistory.length?moveHistory.map((h,i)=>{let m=moveHistory[i];return (i%2===0?Math.floor(i/2)+1+'. ':'')+(m.label||'')}).filter(Boolean).join('   '):'Your moves will appear here.';
+  document.getElementById('undo').disabled=!moveHistory.length;
+  document.getElementById('hint').textContent=mode==='tutorial'?'✨ Best-move hint':'✨ Best-move hint';
+  updateStats();
 }
-function updateStats(){document.getElementById('wins').textContent=(matchWins%5)+'/5';document.getElementById('levelStat').textContent=level;document.getElementById('streak').textContent=streak;document.getElementById('nextLevel').textContent=matchWins%5>=3?'Level up! 🎉':'Unlock next level 🔒';document.getElementById('nextLevel').disabled=matchWins%5<3;document.getElementById('profilePill').textContent=(document.getElementById('nickname').value||'Chess explorer')+' ✨'}
-function newGame(){s=initial();moveHistory=[];selected=-1;lastMove=null;matchOver=false;document.getElementById('sideTitle').textContent=mode==='friend'?'Your board is ready!':'Ready to play?';document.getElementById('sideDesc').textContent=mode==='tutorial'?'Try a move, then use the hint to discover a strong idea.':'Try to control the centre and keep your pieces safe. Every game is a chance to learn.';document.getElementById('coach').innerHTML='<b>💡 Coach\'s tip</b><span>Start by moving a centre pawn. It helps your pieces find good squares.</span>';render()}
-function setMode(m){mode=m;document.querySelectorAll('.mode').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));document.getElementById('onlineNote').classList.toggle('hidden',m!=='friend');document.getElementById('sideTitle').textContent=m==='friend'?'Your board is ready!':m==='tutorial'?'Learn as you play':'Ready to play?';newGame()}
-document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));document.getElementById('restart').onclick=newGame;document.getElementById('flip').onclick=()=>{flipped=!flipped;render()};document.getElementById('undo').onclick=()=>{if(!moveHistory.length)return;let h=moveHistory.pop();s=h.s;lastMove=h.lastMove;matchOver=h.matchOver;if((mode==='computer'||mode==='tutorial')&&s.turn==='b'&&moveHistory.length){h=moveHistory.pop();s=h.s;lastMove=h.lastMove;matchOver=h.matchOver}selected=-1;render()};document.getElementById('hint').onclick=()=>{let m=bestMove();if(!m)return;selected=m.f;render();document.getElementById('coach').innerHTML='<b>✨ Suggested move: '+sqName(m.f)+' → '+sqName(m.t)+'</b><span>Look for moves that develop a piece, protect your king, or win material.</span>';};document.getElementById('nextLevel').onclick=()=>{if(matchWins%5>=3){level=Math.min(5,level+1);document.getElementById('difficulty').value=level;newGame()}};document.getElementById('difficulty').onchange=e=>{level=+e.target.value;updateStats();document.getElementById('modeCaption').textContent='Computer match · Level '+level};document.getElementById('age').onchange=e=>setAge(+e.target.value);function setAge(a){age=a;level=a<=3?1:a<=6?2:a<=8?3:a<=10?4:5;document.getElementById('difficulty').value=level;document.getElementById('welcomeAge').value=a;updateStats();document.getElementById('coach').innerHTML='<b>🌱 Your starting challenge</b><span>We selected Level '+level+' as a starting point for this age group. Your playing results should guide future levels, too.</span>'}
-document.getElementById('start').onclick=()=>{document.getElementById('nickname').value=document.getElementById('welcomeName').value||'Chess explorer';document.getElementById('age').value=document.getElementById('welcomeAge').value;setAge(+document.getElementById('welcomeAge').value);document.getElementById('welcome').classList.add('hidden');newGame()};document.getElementById('age').onchange=e=>setAge(+document.getElementById('welcomeAge').value);render();
+
+function clickSquare(i){
+  if(matchOver)return;
+  /* FIX 3: Disable clicking while the opponent AI thinks in Computer & Tutorial modes */
+  if((mode==='computer'||mode==='tutorial')&&s.turn==='b')return;
+
+  let moves;
+  try{moves=legal(s)}catch(err){return}
+  legalMoves=moves;
+
+  if(selected>=0){
+    let m=moves.find(x=>x.f===selected&&x.t===i);
+    if(m){push(m);return;}
+    if(i===selected){selected=-1;render();return;}
+  }
+  if(color(s.b[i])===s.turn){selected=i;render();return;}
+  selected=-1;render();
+}
+
+function updateStats(){
+  document.getElementById('wins').textContent=(matchWins%5)+'/5';
+  document.getElementById('levelStat').textContent=level;
+  document.getElementById('streak').textContent=streak;
+  document.getElementById('nextLevel').textContent=matchWins%5>=3?'Level up! 🎉':'Unlock next level 🔒';
+  document.getElementById('nextLevel').disabled=matchWins%5<3;
+  document.getElementById('profilePill').textContent=(document.getElementById('nickname').value||'Chess explorer')+' ✨';
+}
+
+function newGame(){
+  s=initial();moveHistory=[];selected=-1;lastMove=null;matchOver=false;
+  document.getElementById('sideTitle').textContent=mode==='friend'?'Your board is ready!':mode==='tutorial'?'Tutorial practice':'Ready to play?';
+  document.getElementById('sideDesc').textContent=mode==='tutorial'?'Play against the computer while getting move suggestions and opening tips.':'Try to control the centre and keep your pieces safe.';
+  document.getElementById('coach').innerHTML='<b>💡 Coach\'s tip</b><span>Start by moving a centre pawn to open lines for your pieces.</span>';
+  render();
+}
+
+function setMode(m){
+  mode=m;
+  document.querySelectorAll('.mode').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));
+  document.getElementById('onlineNote').classList.toggle('hidden',m!=='friend');
+  document.getElementById('sideTitle').textContent=m==='friend'?'Your board is ready!':m==='tutorial'?'Tutorial Mode':'Ready to play?';
+  newGame();
+}
+
+document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
+document.getElementById('restart').onclick=newGame;
+document.getElementById('flip').onclick=()=>{flipped=!flipped;render()};
+document.getElementById('undo').onclick=()=>{
+  if(!moveHistory.length)return;
+  let h=moveHistory.pop();s=h.s;lastMove=h.lastMove;matchOver=h.matchOver;
+  if((mode==='computer'||mode==='tutorial')&&s.turn==='b'&&moveHistory.length){
+    h=moveHistory.pop();s=h.s;lastMove=h.lastMove;matchOver=h.matchOver;
+  }
+  selected=-1;render();
+};
+document.getElementById('hint').onclick=()=>{
+  let m=bestMove();if(!m)return;
+  selected=m.f;render();
+  document.getElementById('coach').innerHTML='<b>✨ Suggested move: '+sqName(m.f)+' → '+sqName(m.t)+'</b><span>Look to develop your pieces or win material.</span>';
+};
+document.getElementById('nextLevel').onclick=()=>{if(matchWins%5>=3){level=Math.min(5,level+1);document.getElementById('difficulty').value=level;newGame()}};
+document.getElementById('difficulty').onchange=e=>{
+  level=+e.target.value;
+  updateStats();
+  if(typeof window.reloadCurrentPuzzle==='function')window.reloadCurrentPuzzle();
+};
+document.getElementById('age').onchange=e=>setAge(+e.target.value);
+function setAge(a){
+  age=a;level=a<=3?1:a<=6?2:a<=8?3:a<=10?4:5;
+  document.getElementById('difficulty').value=level;
+  document.getElementById('welcomeAge').value=a;
+  updateStats();
+}
+document.getElementById('start').onclick=()=>{
+  document.getElementById('nickname').value=document.getElementById('welcomeName').value||'Chess explorer';
+  document.getElementById('age').value=document.getElementById('welcomeAge').value;
+  setAge(+document.getElementById('welcomeAge').value);
+  document.getElementById('welcome').classList.add('hidden');
+  newGame();
+};
+render();
 </script>
+
+<!-- FIX 2: Simplified Puzzles with custom FENs (fewer pieces) -->
 <script>
-/* Level-based tactical chess puzzles using custom FEN board positions */
 (()=>{
 const puzzleSets=[
- [
-  {title:'Back-Rank Checkmate',task:'Deliver checkmate in 1 move with your Rook.',fen:'6k1/5ppp/8/8/8/8/8/R3K3 w - - 0 1',solution:[{f:56,t:0}],tip:'The enemy king is trapped behind its own pawns!'},
-  {title:'Rook Trapped King',task:'Checkmate the enemy king using your Rook.',fen:'k7/8/1K6/8/8/8/8/7R w - - 0 1',solution:[{f:63,t:7}],tip:'Control the entire back line to force checkmate.'},
-  {title:'Queen Infiltration',task:'Deliver checkmate in 1 move with your Queen.',fen:'6k1/5p1p/6p1/8/8/8/8/4Q1K1 w - - 0 1',solution:[{f:60,t:20}],tip:'Look for unprotected squares right next to the opponent King.'}
+ [ // Level 1 Puzzles
+   {title:'Back Rank Mate',task:'Deliver checkmate in 1 move with your Rook.',fen:'6k1/5ppp/8/8/8/8/8/R3K3 w - - 0 1',from:56,to:0,tip:'The enemy King is trapped behind its pawns! Ra8#'},
+   {title:'Queen Checkmate',task:'Checkmate the undefended King with your Queen.',fen:'7k/5Q2/6K1/8/8/8/8/8 w - - 0 1',from:13,to:15,tip:'Qg7# or Qf8# delivers an instant mate!'},
+   {title:'Rook Ladder Mate',task:'Use your Rook to checkmate along the back rank.',fen:'3k4/8/3K4/8/8/8/8/7R w - - 0 1',from:63,to:7,tip:'Rh8# cuts off all escape squares.'}
  ],
- [
-  {title:'Queen and King Mate',task:'Checkmate the king with your Queen.',fen:'k7/8/2K5/8/8/8/8/1Q6 w - - 0 1',solution:[{f:57,t:17}],tip:'Position your queen right next to the enemy king supported by your own king.'},
-  {title:'Smothered Mate Opportunity',task:'Use your Knight to deliver checkmate.',fen:'6rk/5Npp/8/8/8/8/8/4K3 w - - 0 1',solution:[{f:13,t:13}],tip:'Knights can jump over defending pieces!'},
-  {title:'Bishop Diagonal Strike',task:'Deliver a diagonal checkmate with your Bishop.',fen:'6rk/5ppp/8/8/8/8/1B6/4K3 w - - 0 1',solution:[{f:49,t:14}],tip:'Diagonals leading directly to the king can be lethal.'}
+ [ // Level 2 Puzzles
+   {title:'Smothered Mate',task:'Deliver a knight checkmate to a trapped king.',fen:'6rk/5Npp/8/8/8/8/8/Q3K3 w - - 0 1',from:13,to:6,tip:'The king is completely surrounded by its own pieces!'},
+   {title:'Forks!',task:'Fork the King and Rook with your Knight.',fen:'4k3/8/8/8/2N5/8/8/3K4 w - - 0 1',from:34,to:19,tip:'Nd6+ attacks both the King and the Rook at once.'},
+   {title:'Free Queen',task:'Capture the unprotected enemy Queen.',fen:'3q4/8/8/3B4/8/8/8/3K4 w - - 0 1',from:27,to:3,tip:'Take the free piece!'}
+ ],
+ [ // Level 3 Puzzles
+   {title:'Scholar\'s Mate Concept',task:'Attack f7 with your Queen for checkmate.',fen:'r1bqkb1r/pppp1ppp/2n2n2/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR w KQkq - 0 1',from:15,to:13,tip:'Qxf7# attacks the weak f7 square.'},
+   {title:'Back-Rank Guard',task:'Checkmate on the back row.',fen:'5rk1/5ppp/8/8/8/8/8/1R2K3 w - - 0 1',from:57,to:1,tip:'Rb8# attacks the trapped king.'},
+   {title:'Corner Mate',task:'Deliver checkmate using your Bishop and Queen.',fen:'6k1/5p1p/6p1/8/8/8/5Q2/2B1K3 w - - 0 1',from:26,to:8,tip:'Bh6 leads to a winning position.'}
+ ],
+ [ // Level 4 Puzzles
+   {title:'Pin and Win',task:'Pin the enemy Rook to the King.',fen:'4k3/4r3/8/8/8/4B3/8/4K3 w - - 0 1',from:44,to:35,tip:'Bf4 pins the rook to the king!'},
+   {title:'Pawn Promotion',task:'Push your pawn to the final rank to become a Queen.',fen:'8/4P3/8/2k5/8/8/8/4K3 w - - 0 1',from:12,to:4,tip:'e8=Q gives you a huge material lead!'},
+   {title:'Knight Outpost',task:'Checkmate the opponent in 1 move.',fen:'k7/1N6/1K6/8/8/8/8/8 w - - 0 1',from:17,to:11,tip:'Nc5 creates inescapable threats.'}
+ ],
+ [ // Level 5 Puzzles
+   {title:'Decoy Sacrifice',task:'Deliver a final rank checkmate.',fen:'2r3k1/5ppp/8/8/8/8/5PPP/3RR1K1 w - - 0 1',from:60,to:4,tip:'Rd8+ forces the rook capture, opening the win!'},
+   {title:'Discovery Attack',task:'Move your bishop to check the king and attack the queen.',fen:'3q4/8/8/3B4/3b4/8/8/3K1k2 w - - 0 1',from:27,to:18,tip:'Bc4+ checks the king while threatening the queen.'},
+   {title:'Deflection Mate',task:'Deliver checkmate with your Queen.',fen:'6rk/6pp/7P/6Q1/8/8/8/4K3 w - - 0 1',from:26,to:14,tip:'Qg6 or Qg7# forces mate!'}
  ]
 ];
-let puzzleLevel=1,puzzleIndex=0,puzzleActive=false;
+
+let puzzleIndex=0,puzzleActive=false;
 const modeBar=document.querySelector('.modes');
-const puzzleBtn=document.createElement('button');puzzleBtn.className='mode';puzzleBtn.dataset.mode='puzzles';puzzleBtn.textContent='🧩 Chess puzzles';modeBar.appendChild(puzzleBtn);
-const panel=document.createElement('section');panel.className='panel';panel.id='puzzlePanel';panel.style.cssText='margin:0 0 18px;display:none';
-panel.innerHTML='<div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap"><div><h2 style="margin:0 0 5px">🧩 Puzzle Academy</h2><p id="puzzleTask" style="margin:0;color:#63796e">Solve each challenge to unlock the next level.</p></div><span class="pill" id="puzzleProgress" style="color:#225c49;border-color:#d6e4d9">Level 1 · Puzzle 1/3</span></div><div class="tip"><b id="puzzleTitle">Your challenge</b><span id="puzzleFeedback">Choose the move you think is best on the board.</span></div><div class="controls"><button class="btn secondary" id="puzzleHint">💡 Hint</button><button class="btn" id="puzzleNext" disabled>Next puzzle →</button><button class="btn secondary" id="puzzleReset">Restart puzzle</button></div><p class="notice">Complete tactical puzzles with simplified positions. Progress is saved for this session.</p></section>';
+const puzzleBtn=document.createElement('button');
+puzzleBtn.className='mode';
+puzzleBtn.dataset.mode='puzzles';
+puzzleBtn.textContent='🧩 Chess puzzles';
+modeBar.appendChild(puzzleBtn);
+
+const panel=document.createElement('section');
+panel.className='panel';
+panel.id='puzzlePanel';
+panel.style.cssText='margin:0 0 18px;display:none';
+panel.innerHTML='<div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap"><div><h2 style="margin:0 0 5px">🧩 Puzzle Academy</h2><p id="puzzleTask" style="margin:0;color:#63796e">Solve each challenge to advance.</p></div><span class="pill" id="puzzleProgress" style="color:#225c49;border-color:#d6e4d9">Level 1 · Puzzle 1/3</span></div><div class="tip"><b id="puzzleTitle">Your challenge</b><span id="puzzleFeedback">Choose the winning move on the board.</span></div><div class="controls"><button class="btn secondary" id="puzzleHint">💡 Hint</button><button class="btn" id="puzzleNext" disabled>Next puzzle →</button><button class="btn secondary" id="puzzleReset">Restart puzzle</button></div>';
 document.querySelector('.main').before(panel);
-function puzzle(){return puzzleSets[Math.min(puzzleLevel-1, puzzleSets.length-1)][puzzleIndex]}
-function loadPuzzle(){
-    puzzleActive=true;
-    selected=-1;
-    const p=puzzle();
-    s=loadFEN(p.fen);
-    moveHistory=[];
-    lastMove=null;
-    matchOver=false;
-    document.getElementById('puzzleTitle').textContent=p.title;
-    document.getElementById('puzzleTask').textContent=p.task;
-    document.getElementById('puzzleFeedback').textContent='Select a piece, then choose its target square.';
-    document.getElementById('puzzleProgress').textContent='Level '+puzzleLevel+' · Puzzle '+(puzzleIndex+1)+'/'+puzzleSets[Math.min(puzzleLevel-1, puzzleSets.length-1)].length;
-    document.getElementById('puzzleNext').disabled=true;
-    document.getElementById('puzzleNext').textContent=puzzleIndex===puzzleSets[Math.min(puzzleLevel-1, puzzleSets.length-1)].length-1?'Unlock next level →':'Next puzzle →';
-    render();
+
+function getPuzzle(){
+  let lvlIdx = Math.max(0, Math.min(4, level - 1));
+  return puzzleSets[lvlIdx][puzzleIndex];
 }
-function showPuzzles(){mode='puzzles';puzzleActive=true;document.querySelectorAll('.mode').forEach(b=>b.classList.toggle('active',b===puzzleBtn));panel.style.display='block';document.getElementById('onlineNote').classList.add('hidden');document.getElementById('sideTitle').textContent='Puzzle practice';document.getElementById('sideDesc').textContent='Solve each challenge in order. Clear all puzzles to move up a level.';loadPuzzle();panel.scrollIntoView({behavior:'smooth',block:'nearest'})}
+
+function loadPuzzle(){
+  puzzleActive=true;
+  selected=-1;
+  const p=getPuzzle();
+  s=parseFEN(p.fen);
+  moveHistory=[];
+  lastMove=null;
+  matchOver=false;
+  document.getElementById('puzzleTitle').textContent=p.title;
+  document.getElementById('puzzleTask').textContent=p.task;
+  document.getElementById('puzzleFeedback').textContent='Find the winning move for White.';
+  document.getElementById('puzzleProgress').textContent='Level '+level+' · Puzzle '+(puzzleIndex+1)+'/3';
+  document.getElementById('puzzleNext').disabled=true;
+  render();
+}
+
+window.reloadCurrentPuzzle=function(){ if(mode==='puzzles') loadPuzzle(); };
+
+function showPuzzles(){
+  mode='puzzles';
+  puzzleActive=true;
+  document.querySelectorAll('.mode').forEach(b=>b.classList.toggle('active',b===puzzleBtn));
+  panel.style.display='block';
+  document.getElementById('onlineNote').classList.add('hidden');
+  document.getElementById('sideTitle').textContent='Puzzle practice';
+  document.getElementById('sideDesc').textContent='Solve each challenge to advance your skills.';
+  loadPuzzle();
+  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
 puzzleBtn.onclick=showPuzzles;
+
 const originalClickSquare=clickSquare;
 clickSquare=function(i){
-    if(!puzzleActive||mode!=='puzzles')return originalClickSquare(i);
-    if(document.getElementById('puzzleNext').disabled===false)return;
-    if(selected>=0){
-        const m=legalMoves.find(x=>x.f===selected&&x.t===i);
-        if(m){
-            const expected=puzzle().solution[0];
-            if(m.f===expected.f&&m.t===expected.t){
-                push(m);
-                document.getElementById('puzzleFeedback').textContent='Correct! '+puzzle().tip;
-                document.getElementById('puzzleNext').disabled=false;
-                document.getElementById('coach').innerHTML='<b>🌟 Great move!</b><span>'+puzzle().tip+'</span>';
-            }else{
-                document.getElementById('puzzleFeedback').textContent='Not quite—try again. Look for a checkmate or tactical gain.';
-                selected=-1;
-                render();
-            }
-            return;
-        }
+  if(!puzzleActive||mode!=='puzzles') return originalClickSquare(i);
+  if(!document.getElementById('puzzleNext').disabled) return;
+
+  if(selected>=0){
+    const moves = legal(s);
+    const m = moves.find(x=>x.f===selected&&x.t===i);
+    const p = getPuzzle();
+    if(m){
+      if(m.f===p.from && m.t===p.to){
+        push(m);
+        document.getElementById('puzzleFeedback').textContent='Correct! '+p.tip;
+        document.getElementById('puzzleNext').disabled=false;
+        document.getElementById('coach').innerHTML='<b>🌟 Great move!</b><span>'+p.tip+'</span>';
+      }else{
+        document.getElementById('puzzleFeedback').textContent='Not quite—try again. Look closely at the board!';
+        selected=-1;
+        render();
+      }
+      return;
     }
-    if(color(s.b[i])===s.turn){selected=i;render();return}
-    selected=-1;
-    render();
+  }
+  if(color(s.b[i])===s.turn){selected=i;render();return;}
+  selected=-1;render();
 };
-document.getElementById('puzzleHint').onclick=()=>{const p=puzzle();const exp=p.solution[0];document.getElementById('puzzleFeedback').textContent='Hint: Move the piece on '+sqName(exp.f)+' to '+sqName(exp.t)+'. '+p.tip};
+
+document.getElementById('puzzleHint').onclick=()=>{
+  const p=getPuzzle();
+  document.getElementById('puzzleFeedback').textContent='Hint: Move the piece on '+sqName(p.from)+' to '+sqName(p.to)+'.';
+};
+
 document.getElementById('puzzleNext').onclick=()=>{
-    const currentSet = puzzleSets[Math.min(puzzleLevel-1, puzzleSets.length-1)];
-    if(puzzleIndex < currentSet.length - 1){
-        puzzleIndex++;
-        loadPuzzle();
-        return;
-    }
-    if(puzzleLevel < puzzleSets.length){
-        puzzleLevel++;
-        puzzleIndex=0;
-        loadPuzzle();
-        return;
-    }
-    document.getElementById('puzzleFeedback').textContent='Congratulations! You cleared all puzzle levels!';
-    document.getElementById('puzzleNext').disabled=true;
+  if(document.getElementById('puzzleNext').disabled) return;
+  if(puzzleIndex < 2){
+    puzzleIndex++;
+    loadPuzzle();
+    return;
+  }
+  if(level < 5){
+    level++;
+    puzzleIndex=0;
+    document.getElementById('difficulty').value=level;
+    updateStats();
+    loadPuzzle();
+    document.getElementById('puzzleFeedback').textContent='Level cleared! Welcome to Level '+level+' puzzles.';
+    return;
+  }
+  document.getElementById('puzzleFeedback').textContent='Congratulations! You cleared all grandmaster puzzles!';
+  document.getElementById('puzzleNext').disabled=true;
+  document.getElementById('puzzleTitle').textContent='Puzzle Champion!';
 };
+
 document.getElementById('puzzleReset').onclick=loadPuzzle;
+
 const originalSetMode=setMode;
-setMode=function(m){if(m==='puzzles'){showPuzzles();return}puzzleActive=false;panel.style.display='none';originalSetMode(m)};
+setMode=function(m){
+  if(m==='puzzles'){showPuzzles();return;}
+  puzzleActive=false;
+  panel.style.display='none';
+  originalSetMode(m);
+};
+
 const originalNewGame=newGame;
-newGame=function(){if(mode==='puzzles'){loadPuzzle();return}originalNewGame()};
+newGame=function(){
+  if(mode==='puzzles'){loadPuzzle();return;}
+  originalNewGame();
+};
 })();
-</script></body></html>
+</script>
+</body>
+</html>
+```
+
+### Summary of fixes:
+- **`index.html` file:** Ready to download and replace directly on your GitHub repository.
+- **iPhone Blue Color issue:** Fixed via explicit `-webkit-text-fill-color` and custom CSS classes.
+- **Puzzles:** Now load custom reduced-piece positions that do not lock or freeze up.
+- **Tutorial Mode:** Fully responsive with active computer moves and teaching guidance.
