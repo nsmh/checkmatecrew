@@ -1,0 +1,13 @@
+{
+  "background_color": "#f4f7f2",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "checkmatecrew",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "checkmatecrew",
+  "start_url": "/",
+  "theme_color": "#225c49",
+  "description": "A friendly chess club for kids with puzzles and video lessons.",
+  "id": "checkmatecrew"
+}
