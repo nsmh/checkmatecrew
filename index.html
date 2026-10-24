@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Checkmate Crew — Little Grandmasters</title>
+<title>Little Grandmasters — Play & Learn Chess</title>
 <style>
 :root{--site-primary:#225c49;--site-secondary:#d8eee1;--site-background:#f4f7f2;--site-on-primary:#ffffff;--site-on-secondary:#183d30;--site-on-background:#18352b;--site-font-body:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--site-font-heading:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--site-heading-scale:1;--site-spacing-scale:1;--site-radius-scale:1;--site-decoration-opacity:1}
 *{box-sizing:border-box}
-body{margin:0;font-family:var(--site-font-body);background:#101a16;color:#e9f4ed}
+body{margin:0;font-family:var(--site-font-body);background:#101a16;background:light-dark(#f4f7f2,#101a16);color:#18352b;color:light-dark(#18352b,#e9f4ed)}
 .app{min-height:100vh;background-color:var(--site-background);color:var(--site-on-background);border-radius:0}
 .top{background:var(--site-primary);color:var(--site-on-primary);padding:22px max(20px,calc((100vw - 1120px)/2));display:flex;align-items:center;justify-content:space-between;gap:18px}
 .brand{font-size:calc(25px * var(--site-heading-scale));font-weight:850;letter-spacing:-.7px}
@@ -23,53 +23,36 @@ body{margin:0;font-family:var(--site-font-body);background:#101a16;color:#e9f4ed
 .field label{display:block;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#597367;margin-bottom:7px}
 .field input,.field select{width:100%;padding:12px 13px;border:1px solid #d6e2d9;border-radius:12px;background:#fbfdfb;color:#193c2e;font:inherit;outline-color:#3a8868}
 .modes{display:flex;gap:8px;flex-wrap:wrap;margin:17px 0}
-.mode{border:1px solid #d6e4d9;background:#f5faf6;color:#285440;padding:10px 14px;border-radius:12px;font-weight:750;cursor:pointer}
+.mode{border:1px solid #d6e4d9;background:#f5faf6;color:#285440;padding:10px 14px;border-radius:12px;font-weight:750;cursor:pointer;transition:all 0.15s ease}
 .mode.active{background:#225c49;color:#fff;border-color:#225c49}
 .main{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:18px;align-items:start}
 .boardpanel{padding:16px}
 .boardhead{display:flex;align-items:center;justify-content:space-between;margin:0 3px 13px}
-.turn{font-weight:800}
+.turn{font-weight:800;font-size:16px;min-height:24px}
 .small{font-size:12px;color:#6a8175}
-.board{display:grid;grid-template-columns:repeat(8,1fr);width:100%;aspect-ratio:1;border:5px solid #225c49;border-radius:8px;overflow:hidden}
+.board{display:grid;grid-template-columns:repeat(8,1fr);width:100%;aspect-ratio:1;border:5px solid #225c49;border-radius:10px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.12)}
 
-/* FIX 1: Explicit CSS rules so iPhone/Safari won't render pieces in blue text color */
-.sq {
-  border: 0;
-  padding: 0;
-  aspect-ratio: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  cursor: pointer;
-  font-size: clamp(24px, 5.2vw, 55px);
-  line-height: 1;
-  font-family: "Apple Symbols", "Segoe UI Symbol", "DejaVu Sans", serif;
-  -webkit-tap-highlight-color: transparent;
-  color: #111111;
-  -webkit-text-fill-color: initial;
-}
-.sq.piece-white {
-  color: #ffffff !important;
-  text-shadow: 0 0 2px #000, 0 0 1px #000;
-  -webkit-text-fill-color: #ffffff !important;
-}
-.sq.piece-black {
-  color: #111111 !important;
-  text-shadow: 0 0 1px #fff;
-  -webkit-text-fill-color: #111111 !important;
-}
-
+/* Square and iOS-safe piece styling */
+.sq{border:0;padding:0;aspect-ratio:1;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;font-size:clamp(26px,5.8vw,56px);line-height:1;font-family:-apple-system,BlinkMacSystemFont,"Apple Color Emoji","Segoe UI Symbol","DejaVu Sans",sans-serif;user-select:none;-webkit-tap-highlight-color:transparent}
 .light{background:#f0dfbd}
 .dark{background:#719b7c}
-.sq.selected{box-shadow:inset 0 0 0 5px #f4c84a}
-.sq.target:after{content:"";position:absolute;width:22%;height:22%;border-radius:50%;background:#174f3b99}
-.sq.capture:after{content:"";position:absolute;inset:4px;border:4px solid #174f3b99;border-radius:50%}
-.sq .coord{position:absolute;left:4px;top:2px;font-size:10px;font-weight:800;color:#173c2a;opacity:.7}
+.sq.selected{box-shadow:inset 0 0 0 5px #f4c84a!important;background-color:#f7e39e!important}
+.sq.last-from{background-color:#e2dd77!important}
+.sq.last-to{background-color:#f2ea55!important;box-shadow:inset 0 0 0 3px #1f6b4a}
+.sq.target:after{content:"";position:absolute;width:26%;height:26%;border-radius:50%;background:#174f3b88;pointer-events:none}
+.sq.capture:after{content:"";position:absolute;inset:4px;border:4px solid #c93b3bcf;border-radius:50%;pointer-events:none}
+
+/* Explicit piece styling to prevent iOS Safari blue glyph tinting */
+.sq-piece{display:inline-block;line-height:1;font-weight:normal}
+.sq-piece-w{color:#ffffff!important;-webkit-text-fill-color:#ffffff!important;text-shadow:0 0 2px #000, 0 1px 2px #000}
+.sq-piece-b{color:#111111!important;-webkit-text-fill-color:#111111!important;text-shadow:0 0 1px #ffffff}
+
+.sq .coord{position:absolute;left:4px;top:2px;font-size:10px;font-weight:800;color:#173c2a;opacity:.65;pointer-events:none}
 .controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
-.btn{border:0;border-radius:12px;padding:11px 14px;background:#225c49;color:white;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
+.btn{border:0;border-radius:12px;padding:11px 14px;background:#225c49;color:white;font:inherit;font-size:13px;font-weight:800;cursor:pointer;transition:background 0.15s ease}
 .btn.secondary{background:#e7f2e9;color:#285440}
-.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:hover{filter:brightness(1.05)}
+.btn:disabled{opacity:.45;cursor:not-allowed;filter:none}
 .sidepanel h2{margin:0 0 6px;font-size:21px}
 .sidepanel p{color:#63796e;line-height:1.5;font-size:14px;margin:0 0 16px}
 .tip{background:#edf7ef;border:1px solid #d5eadb;border-radius:15px;padding:15px;margin:13px 0}
@@ -79,108 +62,180 @@ body{margin:0;font-family:var(--site-font-body);background:#101a16;color:#e9f4ed
 .stat{background:#f5f8f5;border-radius:12px;padding:12px}
 .stat strong{display:block;font-size:20px}
 .stat span{font-size:11px;color:#6b8176}
-.moves{font-family:ui-monospace,monospace;font-size:13px;line-height:1.8;max-height:130px;overflow:auto;color:#4a6557}
+.moves{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px;line-height:1.8;max-height:130px;overflow-y:auto;color:#4a6557;background:#f9fcf9;padding:8px 12px;border-radius:10px;border:1px solid #e3ebe5}
 .hidden{display:none!important}
 .notice{font-size:12px;color:#71877b;line-height:1.5;margin-top:12px}
 .footer{margin-top:24px;color:#7a8f83;font-size:12px;text-align:center}
-.modal{position:fixed;inset:0;background:#10251dc9;display:flex;align-items:center;justify-content:center;padding:20px;z-index:10}
+.modal{position:fixed;inset:0;background:#10251dc9;display:flex;align-items:center;justify-content:center;padding:20px;z-index:100}
 .modalbox{max-width:460px;width:100%;background:#fff;color:#18352b;padding:27px;border-radius:24px;box-shadow:0 24px 80px #0003}
 .modalbox h2{font-size:29px;margin:0 0 8px}
 .modalbox p{color:#60786b;line-height:1.5}
 .modalbox .field{margin:17px 0}
 .modalbox .btn{width:100%;padding:14px}
 .online-note{font-size:12px;color:#9a5b21;background:#fff5e6;border-radius:10px;padding:11px;margin-top:12px;line-height:1.45}
-@media(max-width:760px){.top{padding:17px 18px}.intro{display:block}.intro .pill{display:inline-block;margin-top:12px}.setup{grid-template-columns:1fr 1fr}.setup .field:first-child{grid-column:1/-1}.main{grid-template-columns:1fr}.wrap{padding:20px 12px 35px}.panel{padding:15px}.sq{font-size:clamp(25px,9vw,48px)}}
+
+@media(max-width:760px){
+  .top{padding:17px 18px}
+  .intro{display:block}
+  .intro .pill{display:inline-block;margin-top:12px}
+  .setup{grid-template-columns:1fr 1fr}
+  .setup .field:first-child{grid-column:1/-1}
+  .main{grid-template-columns:1fr}
+  .wrap{padding:20px 12px 35px}
+  .panel{padding:15px}
+  .sq{font-size:clamp(28px,9.2vw,48px)}
+}
 </style>
 </head>
 <body>
 <div class="app">
-<header class="top"><div><div class="brand">♟ Checkmate <span>Crew</span></div><div class="tag">Play a little. Learn a lot.</div></div><div class="pill" id="profilePill">Young minds, smart moves ✨</div></header>
+<header class="top">
+  <div><div class="brand">♟ Little <span>Grandmasters</span></div><div class="tag">Play a little. Learn a lot.</div></div>
+  <div class="pill" id="profilePill">Young minds, smart moves ✨</div>
+</header>
+
 <main class="wrap">
-<div class="intro"><div><h1>Your next great move starts here.</h1><p>A friendly chess club for curious minds. Practice, explore, and level up one move at a time.</p></div><div class="pill" style="border-color:#d8e6dc;color:#326049">🏆 Learn • Play • Grow</div></div>
+<div class="intro">
+  <div><h1>Your next great move starts here.</h1><p>A friendly chess club for curious kids. Practice, explore, and level up one move at a time.</p></div>
+  <div class="pill" style="border-color:#d8e6dc;color:#326049">🏆 Learn • Play • Grow</div>
+</div>
+
 <section class="panel setup">
-<div class="field"><label for="nickname">Player nickname</label><input id="nickname" maxlength="18" placeholder="e.g. Little Knight" value="Little Knight"></div>
-<div class="field"><label for="age">Age group</label><select id="age"><option value="3">3–5 years · Starter</option><option value="6" selected>6–7 years · Explorer</option><option value="8">8–9 years · Strategist</option><option value="10">10–12 years · Challenger</option><option value="13">13+ years · Advanced</option></select></div>
-<div class="field"><label for="difficulty">Challenge level</label><select id="difficulty"><option value="1">Level 1 · Friendly</option><option value="2" selected>Level 2 · Curious</option><option value="3">Level 3 · Clever</option><option value="4">Level 4 · Sharp</option><option value="5">Level 5 · Master</option></select></div>
+  <div class="field"><label for="nickname">Player nickname</label><input id="nickname" maxlength="18" placeholder="e.g. Little Knight" value="Little Knight"></div>
+  <div class="field"><label for="age">Age group</label><select id="age"><option value="3">3–5 years · Starter</option><option value="6" selected>6–7 years · Explorer</option><option value="8">8–9 years · Strategist</option><option value="10">10–12 years · Challenger</option><option value="13">13+ years · Advanced</option></select></div>
+  <div class="field"><label for="difficulty">Challenge level</label><select id="difficulty"><option value="1">Level 1 · Friendly</option><option value="2" selected>Level 2 · Curious</option><option value="3">Level 3 · Clever</option><option value="4">Level 4 · Sharp</option><option value="5">Level 5 · Master</option></select></div>
 </section>
 
 <div class="modes" role="tablist">
-<button class="mode active" data-mode="computer">🤖 Play computer</button>
-<button class="mode" data-mode="friend">👫 Play with a friend (same device)</button>
-<button class="mode" data-mode="tutorial">💡 Tutorial mode</button>
+  <button class="mode active" data-mode="computer">🤖 Play computer</button>
+  <button class="mode" data-mode="friend">👫 Play with a friend (same device)</button>
+  <button class="mode" data-mode="tutorial">💡 Tutorial mode</button>
+  <button class="mode" data-mode="puzzles">🧩 Chess puzzles</button>
 </div>
 
-<div class="main">
-<section class="panel boardpanel">
-<div class="boardhead"><div><div class="turn" id="turn">White to move</div><div class="small" id="modeCaption">Computer match · Level 2</div></div><div class="pill" style="color:#225c49;border-color:#d6e4d9" id="badge">♙ White</div></div>
-<div class="board" id="board" aria-label="Interactive chess board"></div>
-<div class="controls"><button class="btn secondary" id="undo">↶ Undo</button><button class="btn secondary" id="hint">✨ Best-move hint</button><button class="btn secondary" id="flip">⇅ Flip board</button><button class="btn" id="restart">New game</button></div>
-<div class="notice">Select a piece, then a highlighted square. All standard chess moves are supported.</div>
+<!-- Puzzle Top Banner -->
+<section class="panel" id="puzzlePanel" style="margin:0 0 18px;display:none">
+  <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap">
+    <div><h2 style="margin:0 0 5px">🧩 Puzzle Academy</h2><p id="puzzleTask" style="margin:0;color:#63796e">Solve each tactical puzzle to unlock the next challenge.</p></div>
+    <span class="pill" id="puzzleProgress" style="color:#225c49;border-color:#d6e4d9">Level 1 · Puzzle 1/3</span>
+  </div>
+  <div class="tip"><b id="puzzleTitle">Your challenge</b><span id="puzzleFeedback">Find the best move on the board to complete this scenario.</span></div>
+  <div class="controls">
+    <button class="btn secondary" id="puzzleHint">💡 Hint</button>
+    <button class="btn" id="puzzleNext" disabled>Next puzzle →</button>
+    <button class="btn secondary" id="puzzleReset">Restart puzzle</button>
+  </div>
+  <p class="notice">Solve all 3 puzzles in a level to advance to the next difficulty set.</p>
 </section>
 
-<aside class="panel sidepanel">
-<h2 id="sideTitle">Ready to play?</h2>
-<p id="sideDesc">Try to control the centre and keep your pieces safe. Every game is a chance to learn.</p>
-<div class="tip" id="coach"><b>💡 Coach's tip</b><span>Start by moving a centre pawn. It helps your pieces find good squares.</span></div>
-<div class="controls"><button class="btn" id="nextLevel">Unlock next level 🔒</button></div>
-<div class="stats"><div class="stat"><strong id="wins">0/5</strong><span>Recent wins</span></div><div class="stat"><strong id="levelStat">2</strong><span>Current level</span></div><div class="stat"><strong id="streak">0</strong><span>Win streak</span></div></div>
-<h3 style="margin:22px 0 6px">Move history</h3>
-<div class="moves" id="moves">Your moves will appear here.</div>
-<div class="tip hidden" id="onlineNote"><b>👫 Same-device game</b><span>Two players share this board. White moves first, then Black; pass the device after each turn.</span></div>
-</aside>
+<div class="main">
+  <section class="panel boardpanel">
+    <div class="boardhead">
+      <div><div class="turn" id="turn">White to move</div><div class="small" id="modeCaption">Computer match · Level 2</div></div>
+      <div class="pill" style="color:#225c49;border-color:#d6e4d9" id="badge">♙ White</div>
+    </div>
+    <div class="board" id="board" aria-label="Interactive chess board"></div>
+    <div class="controls">
+      <button class="btn secondary" id="undo">↶ Undo</button>
+      <button class="btn secondary" id="hint">✨ Best-move hint</button>
+      <button class="btn secondary" id="flip">⇅ Flip board</button>
+      <button class="btn" id="restart">New game</button>
+    </div>
+    <div class="notice">Select a piece, then click a highlighted target square. Highlighted yellow squares show the computer's last move.</div>
+  </section>
+
+  <aside class="panel sidepanel">
+    <h2 id="sideTitle">Ready to play?</h2>
+    <p id="sideDesc">Try to control the centre and keep your pieces safe. Every game is a chance to learn.</p>
+    <div class="tip" id="coach"><b>💡 Coach's tip</b><span>Start by moving a centre pawn. It helps your pieces find good squares.</span></div>
+    <div class="controls"><button class="btn" id="nextLevel">Unlock next level 🔒</button></div>
+    <div class="stats">
+      <div class="stat"><strong id="wins">0/5</strong><span>Recent wins</span></div>
+      <div class="stat"><strong id="levelStat">2</strong><span>Current level</span></div>
+      <div class="stat"><strong id="streak">0</strong><span>Win streak</span></div>
+    </div>
+    <h3 style="margin:22px 0 6px">Move history</h3>
+    <div class="moves" id="moves">Your moves will appear here.</div>
+    <div class="tip hidden" id="onlineNote"><b>👫 Same-device game</b><span>Two children share this board. White moves first, then Black; pass the device after each turn.</span></div>
+  </aside>
 </div>
-<div class="footer">Checkmate Crew · Interactive Chess</div>
+
+<div class="footer">Checkmate Crew · Little Grandmasters Practice Playground</div>
 </main>
 
 <div class="modal" id="welcome">
-<div class="modalbox">
-<div style="font-size:36px">♟️🌱</div>
-<h2>Welcome, chess explorer!</h2>
-<p>Let's make your chess journey your own. Choose your age group to get a friendly starting challenge.</p>
-<div class="field"><label for="welcomeName">What should we call you?</label><input id="welcomeName" maxlength="18" placeholder="Your nickname" value="Little Knight"></div>
-<div class="field"><label for="welcomeAge">How old are you?</label><select id="welcomeAge"><option value="3">3–5 years</option><option value="6" selected>6–7 years</option><option value="8">8–9 years</option><option value="10">10–12 years</option><option value="13">13+ years</option></select></div>
-<button class="btn" id="start">Let's play chess! →</button>
-</div>
+  <div class="modalbox">
+    <div style="font-size:36px">♟️🌱</div>
+    <h2>Welcome, chess explorer!</h2>
+    <p>Let's make your chess journey your own. Choose your age group to get a friendly starting challenge.</p>
+    <div class="field"><label for="welcomeName">What should we call you?</label><input id="welcomeName" maxlength="18" placeholder="Your nickname" value="Little Knight"></div>
+    <div class="field"><label for="welcomeAge">How old are you?</label><select id="welcomeAge"><option value="3">3–5 years</option><option value="6" selected>6–7 years</option><option value="8">8–9 years</option><option value="10">10–12 years</option><option value="13">13+ years</option></select></div>
+    <button class="btn" id="start">Let's play chess! →</button>
+    <div class="notice">No account required. Your progress stays right here in your browser.</div>
+  </div>
 </div>
 </div>
 
 <script>
+// Glyph dictionary (using plain clean unicode glyphs)
 const glyph={K:'♔',Q:'♕',R:'♖',B:'♗',N:'♘',P:'♙',k:'♚',q:'♛',r:'♜',b:'♝',n:'♞',p:'♟'};
 const files='abcdefgh';
-const initial=()=>({b:'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'.split('/').flatMap(r=>{let a=[];for(const c of r){if(+c)a.push(...Array(+c).fill('.'));else a.push(c)}return a}),turn:'w',castle:'KQkq',ep:-1,half:0,full:1});
 
+// Initial board helper
+const initial=()=>({
+  b:'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'.split('/').flatMap(r=>{let a=[];for(const c of r){if(+c)a.push(...Array(+c).fill('.'));else a.push(c)}return a}),
+  turn:'w',castle:'KQkq',ep:-1,half:0,full:1
+});
+
+// FEN Parser for simplified tactical puzzle setups
 function parseFEN(fen) {
   const parts = fen.split(' ');
   const rows = parts[0].split('/');
   let board = [];
   for (const r of rows) {
     for (const c of r) {
-      if (+c) board.push(...Array(+c).fill('.'));
+      if (!isNaN(c)) board.push(...Array(parseInt(c, 10)).fill('.'));
       else board.push(c);
     }
   }
-  return { b: board, turn: parts[1]||'w', castle: parts[2]||'', ep: -1, half: 0, full: 1 };
+  return {
+    b: board,
+    turn: parts[1] || 'w',
+    castle: parts[2] || '',
+    ep: parts[3] && parts[3] !== '-' ? files.indexOf(parts[3][0]) + (8 - parseInt(parts[3][1])) * 8 : -1,
+    half: parseInt(parts[4]) || 0,
+    full: parseInt(parts[5]) || 1
+  };
 }
 
-let s=initial(),moveHistory=[],selected=-1,legalMoves=[],lastMove=null,mode='computer',flipped=false,level=2,age=6,wins=0,streak=0,matchWins=0,matchOver=false;
+let s=initial(),moveHistory=[],selected=-1,legalMoves=[],lastMove=null,mode='computer',flipped=false,level=2,age=6,wins=0,streak=0,matchWins=0,matchOver=false,isComputerThinking=false;
+
 const clone=x=>JSON.parse(JSON.stringify(x));
 const sqName=i=>files[i%8]+(8-Math.floor(i/8));
 const color=p=>p==='.'?null:p===p.toUpperCase()?'w':'b';
 const inside=(r,c)=>r>=0&&r<8&&c>=0&&c<8;
-function king(pos,col){return pos.b.indexOf(col === 'w' ? 'K' : 'k');}
+
+function king(pos,col){return pos.b.indexOf(col==='w'?'K':'k')}
 
 function attacked(pos,target,by){
   const b=pos.b,tr=Math.floor(target/8),tc=target%8;
   for(let i=0;i<64;i++){
-    const p=b[i];if(p==='.'||color(p)!==by)continue;
+    const p=b[i];
+    if(p==='.'||color(p)!==by)continue;
     let r=Math.floor(i/8),c=i%8,dr=tr-r,dc=tc-c,t=p.toLowerCase();
-    if(t==='p'){if(dr===(by==='w'?-1:1)&&Math.abs(dc)===1)return true;continue}
+    if(t==='p'){
+      if(dr===(by==='w'?-1:1)&&Math.abs(dc)===1)return true;
+      continue;
+    }
     if(t==='n'&&((Math.abs(dr)===2&&Math.abs(dc)===1)||(Math.abs(dr)===1&&Math.abs(dc)===2)))return true;
     if(t==='k'&&Math.max(Math.abs(dr),Math.abs(dc))===1)return true;
     if(t==='b'||t==='r'||t==='q'){
       if((t==='b'&&Math.abs(dr)!==Math.abs(dc))||(t==='r'&&dr!==0&&dc!==0)||(t==='q'&&dr!==0&&dc!==0&&Math.abs(dr)!==Math.abs(dc)))continue;
       let sr=Math.sign(dr),sc=Math.sign(dc),rr=r+sr,cc=c+sc,blocked=false;
-      while(rr!==tr||cc!==tc){if(b[rr*8+cc]!=='.'){blocked=true;break}rr+=sr;cc+=sc}
+      while(rr!==tr||cc!==tc){
+        if(b[rr*8+cc]!=='.'){blocked=true;break}
+        rr+=sr;cc+=sc;
+      }
       if(!blocked)return true;
     }
   }
@@ -191,15 +246,21 @@ function pseudo(pos){
   let out=[],b=pos.b,us=pos.turn;
   function add(f,t,flags={}){
     if(color(b[t])===us||b[t].toLowerCase()==='k')return;
-    if(b[f].toLowerCase()==='p'&&(t<8||t>=56)){for(const pr of ['q','r','b','n'])out.push({f,t,promo:pr,...flags})}
-    else out.push({f,t,...flags});
+    if(b[f].toLowerCase()==='p'&&(t<8||t>=56)){
+      for(const pr of ['q','r','b','n'])out.push({f,t,promo:pr,...flags});
+    }else out.push({f,t,...flags});
   }
+
   for(let f=0;f<64;f++){
-    let p=b[f];if(color(p)!==us)continue;
-    let r=f>>3,c=f%8,t=p.toLowerCase();
+    let p=b[f];
+    if(color(p)!==us)continue;
+    let r=Math.floor(f/8),c=f%8,t=p.toLowerCase();
     if(t==='p'){
       let d=us==='w'?-1:1,nr=r+d;
-      if(inside(nr,c)&&b[nr*8+c]==='.'){add(f,nr*8+c);if((us==='w'?r===6:r===1)&&b[(r+2*d)*8+c]==='.')add(f,(r+2*d)*8+c)}
+      if(inside(nr,c)&&b[nr*8+c]==='.'){
+        add(f,nr*8+c);
+        if((us==='w'?r===6:r===1)&&b[(r+2*d)*8+c]==='.')add(f,(r+2*d)*8+c);
+      }
       for(let dc of [-1,1]){
         let rr=r+d,cc=c+dc;
         if(inside(rr,cc)){
@@ -238,9 +299,14 @@ function pseudo(pos){
 
 function apply(pos,m){
   let n=clone(pos),p=n.b[m.f],capt=n.b[m.t];
-  n.b[m.f]='.';n.b[m.t]=m.promo?(pos.turn==='w'?m.promo.toUpperCase():m.promo):p;
+  n.b[m.f]='.';
+  n.b[m.t]=m.promo?(pos.turn==='w'?m.promo.toUpperCase():m.promo):p;
   if(m.ep)n.b[m.t+(pos.turn==='w'?8:-8)]='.';
-  if(m.castle){let rookFrom=m.t>m.f?m.f+3:m.f-4,rookTo=m.t>m.f?m.f+1:m.f-1;n.b[rookTo]=n.b[rookFrom];n.b[rookFrom]='.'}
+  if(m.castle){
+    let rookFrom=m.t>m.f?m.f+3:m.f-4,rookTo=m.t>m.f?m.f+1:m.f-1;
+    n.b[rookTo]=n.b[rookFrom];
+    n.b[rookFrom]='.';
+  }
   if(p==='K')n.castle=n.castle.replace(/[KQ]/g,'');
   if(p==='k')n.castle=n.castle.replace(/[kq]/g,'');
   const rights={63:'K',56:'Q',7:'k',0:'q'};
@@ -255,15 +321,14 @@ function apply(pos,m){
 
 function legal(pos){
   return pseudo(pos).filter(m=>{
-    const next = apply(pos,m);
-    const kPos = king(next,pos.turn);
-    if(kPos < 0) return true;
-    return !attacked(next, kPos, pos.turn === 'w' ? 'b' : 'w');
+    const next=apply(pos,m);
+    return !attacked(next,king(next,pos.turn),pos.turn==='w'?'b':'w');
   });
 }
 
 function status(){
-  let ms=legal(s),kPos=king(s,s.turn),check=kPos>=0&&attacked(s,kPos,s.turn==='w'?'b':'w');
+  if(isComputerThinking)return '🤖 Computer is thinking...';
+  let ms=legal(s),check=attacked(s,king(s,s.turn),s.turn==='w'?'b':'w');
   if(!ms.length)return check?(s.turn==='w'?'Black wins by checkmate!':'White wins by checkmate!'):'Draw by stalemate.';
   return (s.turn==='w'?'White':'Black')+' to move'+(check?' · Check!':'');
 }
@@ -275,15 +340,6 @@ function san(m){
   return x;
 }
 
-/* FIX 3: Dynamic tips for Tutorial mode */
-const tutorialTips = [
-  "Central control is key! Occupy or attack e4, d4, e5, and d5.",
-  "Develop knights before bishops to keep options open.",
-  "Castle early to safeguard your king and connect your rooks.",
-  "Don't move the same piece multiple times in the opening without reason.",
-  "Before each move, check if any of your pieces are undefended."
-];
-
 function push(m){
   let label=(s.turn==='w'?s.full+'. ':'')+san(m);
   moveHistory.push({s:clone(s),lastMove,matchOver,label});
@@ -293,24 +349,37 @@ function push(m){
   matchOver=!legal(s).length;
   render();
 
-  if(mode === 'tutorial') {
-    const randomTip = tutorialTips[Math.floor(Math.random() * tutorialTips.length)];
-    document.getElementById('coach').innerHTML = `<b>💡 Tutorial Advice</b><span>${randomTip}</span>`;
-  }
-
   if(matchOver){
     let txt=status();
-    if(txt.includes('wins by checkmate')){if(mode!=='friend'&&txt.startsWith('White')){wins++;streak++;matchWins++}else if(mode!=='friend'){streak=0}}
+    if(txt.includes('wins by checkmate')){
+      if(mode!=='friend'&&txt.startsWith('White')){wins++;streak++;matchWins++}
+      else if(mode!=='friend'){streak=0}
+    }
     document.getElementById('sideTitle').textContent=txt;
-    document.getElementById('sideDesc').textContent='Great effort! Keep practicing.';
-    document.getElementById('coach').innerHTML='<b>🏁 Game complete</b><span>Review your game and try another round!</span>';
+    document.getElementById('sideDesc').textContent='Great effort! Start a new game to keep learning.';
+    document.getElementById('coach').innerHTML='<b>🏁 Game complete</b><span>Review the moves and think about what you learned.</span>';
     updateStats();
     return;
   }
 
-  /* FIX 3: AI plays Black's turn in both Computer AND Tutorial modes */
-  if((mode==='computer'||mode==='tutorial')&&s.turn==='b') {
-    setTimeout(computerMove, 350);
+  // Handle Tutorial coaching tips
+  if(mode==='tutorial'){
+    const tips=[
+      "Control the centre with pawns and knights.",
+      "Develop your pieces before launching an attack.",
+      "Keep your King safe by clearing the way to castle.",
+      "Look for undefended pieces on your opponent's side.",
+      "Trade pieces when you are ahead in material!"
+    ];
+    document.getElementById('coach').innerHTML='<b>💡 Coach\'s advice</b><span>'+tips[Math.floor(Math.random()*tips.length)]+'</span>';
+  }
+
+  // Trigger computer move in Computer or Tutorial mode with child-friendly delay
+  if((mode==='computer'||mode==='tutorial')&&s.turn==='b'){
+    isComputerThinking=true;
+    render();
+    // 1.1 second delay so kids see the move transition clearly
+    setTimeout(computerMove, 1100);
   }
 }
 
@@ -321,12 +390,13 @@ function score(pos){
 }
 
 function computerMove(){
+  isComputerThinking=false;
   if((mode!=='computer'&&mode!=='tutorial')||s.turn!=='b'||matchOver)return;
-  let ms=legal(s);if(!ms.length)return;
+  let ms=legal(s);
+  if(!ms.length)return;
   let candidates=ms.map(m=>({m,v:(()=>{
     let ns=apply(s,m),sc=score(ns);
-    let kPos=king(ns,ns.turn);
-    if(kPos>=0&&attacked(ns,kPos,ns.turn==='w'?'b':'w'))sc+=ns.turn==='w'?-30:30;
+    if(attacked(ns,king(ns,ns.turn),ns.turn==='w'?'b':'w'))sc+=ns.turn==='w'?-30:30;
     return sc+(Math.random()-.5)*(level===1?500:level===2?300:level===3?160:level===4?80:35);
   })()}));
   candidates.sort((a,b)=>a.v-b.v);
@@ -335,12 +405,14 @@ function computerMove(){
 }
 
 function bestMove(){
-  let ms=legal(s);if(!ms.length)return null;
+  let ms=legal(s);
+  if(!ms.length)return null;
   return ms.map(m=>({m,v:score(apply(s,m))})).sort((a,b)=>s.turn==='w'?b.v-a.v:a.v-b.v)[0].m;
 }
 
 function render(){
-  const board=document.getElementById('board');if(!board)return;
+  const board=document.getElementById('board');
+  if(!board)return;
   let order=Array.from({length:64},(_,i)=>i);
   if(flipped)order.reverse();
   board.innerHTML='';
@@ -348,11 +420,27 @@ function render(){
   for(let i of order){
     let p=s.b[i],btn=document.createElement('button');
     btn.type='button';
-    let pClass = p === '.' ? '' : (color(p) === 'w' ? ' piece-white' : ' piece-black');
-    btn.className='sq '+(((i>>3)+(i%8))%2?'dark':'light') + pClass;
+    btn.className='sq '+(((i>>3)+(i%8))%2?'dark':'light');
     btn.setAttribute('aria-label',sqName(i)+' '+(p==='.'?'empty':p));
+
+    // Highlight selected square
     if(selected===i)btn.classList.add('selected');
-    btn.innerHTML=(i%8===0?'<span class="coord">'+(8-(i>>3))+'</span>':'')+(p==='.'?'':glyph[p]);
+
+    // Highlight computer/player's last move with gentle yellow glow
+    if(lastMove&&lastMove.f===i)btn.classList.add('last-from');
+    if(lastMove&&lastMove.t===i)btn.classList.add('last-to');
+
+    // Rank coordinates
+    let coordHtml=(i%8===0?'<span class="coord">'+(8-(i>>3))+'</span>':'');
+
+    // Piece HTML with explicit iOS color protection classes
+    let pieceHtml='';
+    if(p!=='.'){
+      let pColorClass = color(p)==='w' ? 'sq-piece-w' : 'sq-piece-b';
+      pieceHtml = `<span class="sq-piece ${pColorClass}">${glyph[p]}</span>`;
+    }
+
+    btn.innerHTML=coordHtml+pieceHtml;
     btn.onclick=()=>clickSquare(i);
     board.appendChild(btn);
   }
@@ -360,39 +448,47 @@ function render(){
   try{
     legalMoves=legal(s);
     for(let btn of board.children){
-      let i=flipped?63-Array.prototype.indexOf.call(board.children,btn):Array.prototype.indexOf.call(board.children,btn);
-      if(selected>=0&&legalMoves.some(m=>m.f===selected&&m.t===i))btn.classList.add(s.b[i]==='.'?'target':'capture');
+      let idx=Array.prototype.indexOf.call(board.children,btn);
+      let i=flipped?63-idx:idx;
+      if(selected>=0&&legalMoves.some(m=>m.f===selected&&m.t===i)){
+        btn.classList.add(s.b[i]==='.'?'target':'capture');
+      }
     }
     document.getElementById('turn').textContent=status();
   }catch(err){
-    document.getElementById('turn').textContent='Chessboard ready';
-    console.error(err);
+    document.getElementById('turn').textContent='Chessboard ready · select a piece to begin';
+    console.error('Chess calculation:',err);
   }
 
-  document.getElementById('modeCaption').textContent=(mode==='computer'?'Computer match':mode==='friend'?'Two-player board':mode==='puzzles'?'Puzzle practice':'Tutorial mode')+' · Level '+level;
+  document.getElementById('modeCaption').textContent=(mode==='computer'?'Computer match':mode==='friend'?'Two-player board':mode==='puzzles'?'Puzzle Academy':'Tutorial mode')+' · Level '+level;
   document.getElementById('badge').textContent=s.turn==='w'?'♙ White':'♟ Black';
   document.getElementById('moves').textContent=moveHistory.length?moveHistory.map((h,i)=>{let m=moveHistory[i];return (i%2===0?Math.floor(i/2)+1+'. ':'')+(m.label||'')}).filter(Boolean).join('   '):'Your moves will appear here.';
-  document.getElementById('undo').disabled=!moveHistory.length;
-  document.getElementById('hint').textContent=mode==='tutorial'?'✨ Best-move hint':'✨ Best-move hint';
+  document.getElementById('undo').disabled=!moveHistory.length||isComputerThinking;
+  document.getElementById('hint').textContent=mode==='tutorial'?'✨ Explain best move':'✨ Best-move hint';
   updateStats();
 }
 
 function clickSquare(i){
-  if(matchOver)return;
-  /* FIX 3: Disable clicking while the opponent AI thinks in Computer & Tutorial modes */
+  if(matchOver||isComputerThinking)return;
   if((mode==='computer'||mode==='tutorial')&&s.turn==='b')return;
 
   let moves;
-  try{moves=legal(s)}catch(err){return}
+  try{moves=legal(s)}catch(err){console.error('Legal move error:',err);return}
   legalMoves=moves;
 
   if(selected>=0){
     let m=moves.find(x=>x.f===selected&&x.t===i);
-    if(m){push(m);return;}
-    if(i===selected){selected=-1;render();return;}
+    if(m){push(m);return}
+    if(i===selected){selected=-1;render();return}
   }
-  if(color(s.b[i])===s.turn){selected=i;render();return;}
-  selected=-1;render();
+
+  if(color(s.b[i])===s.turn){
+    selected=i;
+    render();
+    return;
+  }
+  selected=-1;
+  render();
 }
 
 function updateStats(){
@@ -405,10 +501,15 @@ function updateStats(){
 }
 
 function newGame(){
-  s=initial();moveHistory=[];selected=-1;lastMove=null;matchOver=false;
-  document.getElementById('sideTitle').textContent=mode==='friend'?'Your board is ready!':mode==='tutorial'?'Tutorial practice':'Ready to play?';
-  document.getElementById('sideDesc').textContent=mode==='tutorial'?'Play against the computer while getting move suggestions and opening tips.':'Try to control the centre and keep your pieces safe.';
-  document.getElementById('coach').innerHTML='<b>💡 Coach\'s tip</b><span>Start by moving a centre pawn to open lines for your pieces.</span>';
+  s=initial();
+  moveHistory=[];
+  selected=-1;
+  lastMove=null;
+  matchOver=false;
+  isComputerThinking=false;
+  document.getElementById('sideTitle').textContent=mode==='friend'?'Your board is ready!':mode==='tutorial'?'Learn as you play':'Ready to play?';
+  document.getElementById('sideDesc').textContent=mode==='tutorial'?'Try a move! The computer will respond and give you helpful coaching tips.':'Try to control the centre and keep your pieces safe. Every game is a chance to learn.';
+  document.getElementById('coach').innerHTML='<b>💡 Coach\'s tip</b><span>Start by moving a centre pawn. It helps your pieces find good squares.</span>';
   render();
 }
 
@@ -416,16 +517,26 @@ function setMode(m){
   mode=m;
   document.querySelectorAll('.mode').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));
   document.getElementById('onlineNote').classList.toggle('hidden',m!=='friend');
-  document.getElementById('sideTitle').textContent=m==='friend'?'Your board is ready!':m==='tutorial'?'Tutorial Mode':'Ready to play?';
-  newGame();
+  document.getElementById('puzzlePanel').style.display=m==='puzzles'?'block':'none';
+  document.getElementById('sideTitle').textContent=m==='friend'?'Your board is ready!':m==='tutorial'?'Learn as you play':m==='puzzles'?'Puzzle Academy':'Ready to play?';
+  
+  if(m==='puzzles'){
+    if(window.loadPuzzle)window.loadPuzzle();
+  } else {
+    newGame();
+  }
 }
 
 document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
-document.getElementById('restart').onclick=newGame;
+document.getElementById('restart').onclick=()=>{
+  if(mode==='puzzles'){if(window.loadPuzzle)window.loadPuzzle();}
+  else newGame();
+};
 document.getElementById('flip').onclick=()=>{flipped=!flipped;render()};
 document.getElementById('undo').onclick=()=>{
-  if(!moveHistory.length)return;
-  let h=moveHistory.pop();s=h.s;lastMove=h.lastMove;matchOver=h.matchOver;
+  if(!moveHistory.length||isComputerThinking)return;
+  let h=moveHistory.pop();
+  s=h.s;lastMove=h.lastMove;matchOver=h.matchOver;
   if((mode==='computer'||mode==='tutorial')&&s.turn==='b'&&moveHistory.length){
     h=moveHistory.pop();s=h.s;lastMove=h.lastMove;matchOver=h.matchOver;
   }
@@ -434,21 +545,32 @@ document.getElementById('undo').onclick=()=>{
 document.getElementById('hint').onclick=()=>{
   let m=bestMove();if(!m)return;
   selected=m.f;render();
-  document.getElementById('coach').innerHTML='<b>✨ Suggested move: '+sqName(m.f)+' → '+sqName(m.t)+'</b><span>Look to develop your pieces or win material.</span>';
+  document.getElementById('coach').innerHTML='<b>✨ Suggested move: '+sqName(m.f)+' → '+sqName(m.t)+'</b><span>Look for moves that develop a piece, protect your king, or capture undefended pieces.</span>';
 };
-document.getElementById('nextLevel').onclick=()=>{if(matchWins%5>=3){level=Math.min(5,level+1);document.getElementById('difficulty').value=level;newGame()}};
+document.getElementById('nextLevel').onclick=()=>{
+  if(matchWins%5>=3){
+    level=Math.min(5,level+1);
+    document.getElementById('difficulty').value=level;
+    newGame();
+  }
+};
 document.getElementById('difficulty').onchange=e=>{
   level=+e.target.value;
   updateStats();
-  if(typeof window.reloadCurrentPuzzle==='function')window.reloadCurrentPuzzle();
+  if(mode==='puzzles'&&window.loadPuzzle)window.loadPuzzle();
+  else render();
 };
+
 document.getElementById('age').onchange=e=>setAge(+e.target.value);
 function setAge(a){
-  age=a;level=a<=3?1:a<=6?2:a<=8?3:a<=10?4:5;
+  age=a;
+  level=a<=3?1:a<=6?2:a<=8?3:a<=10?4:5;
   document.getElementById('difficulty').value=level;
   document.getElementById('welcomeAge').value=a;
   updateStats();
+  document.getElementById('coach').innerHTML='<b>🌱 Your starting challenge</b><span>We selected Level '+level+' for your age group. Have fun!</span>';
 }
+
 document.getElementById('start').onclick=()=>{
   document.getElementById('nickname').value=document.getElementById('welcomeName').value||'Chess explorer';
   document.getElementById('age').value=document.getElementById('welcomeAge').value;
@@ -456,168 +578,140 @@ document.getElementById('start').onclick=()=>{
   document.getElementById('welcome').classList.add('hidden');
   newGame();
 };
+
 render();
 </script>
 
-<!-- FIX 2: Simplified Puzzles with custom FENs (fewer pieces) -->
 <script>
+/* Dedicated Puzzle Academy Engine */
 (()=>{
-const puzzleSets=[
- [ // Level 1 Puzzles
-   {title:'Back Rank Mate',task:'Deliver checkmate in 1 move with your Rook.',fen:'6k1/5ppp/8/8/8/8/8/R3K3 w - - 0 1',from:56,to:0,tip:'The enemy King is trapped behind its pawns! Ra8#'},
-   {title:'Queen Checkmate',task:'Checkmate the undefended King with your Queen.',fen:'7k/5Q2/6K1/8/8/8/8/8 w - - 0 1',from:13,to:15,tip:'Qg7# or Qf8# delivers an instant mate!'},
-   {title:'Rook Ladder Mate',task:'Use your Rook to checkmate along the back rank.',fen:'3k4/8/3K4/8/8/8/8/7R w - - 0 1',from:63,to:7,tip:'Rh8# cuts off all escape squares.'}
- ],
- [ // Level 2 Puzzles
-   {title:'Smothered Mate',task:'Deliver a knight checkmate to a trapped king.',fen:'6rk/5Npp/8/8/8/8/8/Q3K3 w - - 0 1',from:13,to:6,tip:'The king is completely surrounded by its own pieces!'},
-   {title:'Forks!',task:'Fork the King and Rook with your Knight.',fen:'4k3/8/8/8/2N5/8/8/3K4 w - - 0 1',from:34,to:19,tip:'Nd6+ attacks both the King and the Rook at once.'},
-   {title:'Free Queen',task:'Capture the unprotected enemy Queen.',fen:'3q4/8/8/3B4/8/8/8/3K4 w - - 0 1',from:27,to:3,tip:'Take the free piece!'}
- ],
- [ // Level 3 Puzzles
-   {title:'Scholar\'s Mate Concept',task:'Attack f7 with your Queen for checkmate.',fen:'r1bqkb1r/pppp1ppp/2n2n2/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR w KQkq - 0 1',from:15,to:13,tip:'Qxf7# attacks the weak f7 square.'},
-   {title:'Back-Rank Guard',task:'Checkmate on the back row.',fen:'5rk1/5ppp/8/8/8/8/8/1R2K3 w - - 0 1',from:57,to:1,tip:'Rb8# attacks the trapped king.'},
-   {title:'Corner Mate',task:'Deliver checkmate using your Bishop and Queen.',fen:'6k1/5p1p/6p1/8/8/8/5Q2/2B1K3 w - - 0 1',from:26,to:8,tip:'Bh6 leads to a winning position.'}
- ],
- [ // Level 4 Puzzles
-   {title:'Pin and Win',task:'Pin the enemy Rook to the King.',fen:'4k3/4r3/8/8/8/4B3/8/4K3 w - - 0 1',from:44,to:35,tip:'Bf4 pins the rook to the king!'},
-   {title:'Pawn Promotion',task:'Push your pawn to the final rank to become a Queen.',fen:'8/4P3/8/2k5/8/8/8/4K3 w - - 0 1',from:12,to:4,tip:'e8=Q gives you a huge material lead!'},
-   {title:'Knight Outpost',task:'Checkmate the opponent in 1 move.',fen:'k7/1N6/1K6/8/8/8/8/8 w - - 0 1',from:17,to:11,tip:'Nc5 creates inescapable threats.'}
- ],
- [ // Level 5 Puzzles
-   {title:'Decoy Sacrifice',task:'Deliver a final rank checkmate.',fen:'2r3k1/5ppp/8/8/8/8/5PPP/3RR1K1 w - - 0 1',from:60,to:4,tip:'Rd8+ forces the rook capture, opening the win!'},
-   {title:'Discovery Attack',task:'Move your bishop to check the king and attack the queen.',fen:'3q4/8/8/3B4/3b4/8/8/3K1k2 w - - 0 1',from:27,to:18,tip:'Bc4+ checks the king while threatening the queen.'},
-   {title:'Deflection Mate',task:'Deliver checkmate with your Queen.',fen:'6rk/6pp/7P/6Q1/8/8/8/4K3 w - - 0 1',from:26,to:14,tip:'Qg6 or Qg7# forces mate!'}
- ]
+// Simplified, clean tactical puzzle setups with fewer pieces for each level (1-5)
+const puzzleSets = [
+  // Level 1: Starter Tactics
+  [
+    { title:'Open the Centre', task:'Move your King\'s Pawn 2 squares forward to e4.', fen:'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', from:52, to:36, tip:'Moving the e-pawn takes control of central squares.' },
+    { title:'Activate Your Knight', task:'Develop your Knight from g1 to f3.', fen:'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1', from:62, to:45, tip:'Knights control important central squares from f3.' },
+    { title:'Back Rank Checkmate', task:'Deliver checkmate in 1 move with your Rook!', fen:'6k1/5ppp/8/8/8/8/8/R3K3 w - - 0 1', from:56, to:0, tip:'The enemy king is trapped behind its own pawns on the back rank!' }
+  ],
+  // Level 2: Explorer Tactics
+  [
+    { title:'Scholar\'s Mate Finish', task:'Capture the pawn on f7 with your Queen for checkmate!', fen:'r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1', from:45, to:13, tip:'The f7 pawn was protected only by the enemy king!' },
+    { title:'Fork King & Rook', task:'Move your Knight to c7 to attack both the King and Rook at once!', fen:'r3k2r/ppp2ppp/8/4N3/8/8/PPPP1PPP/R3K2R w KQkq - 0 1', from:21, to:18, tip:'A knight fork attacks two high-value targets simultaneously!' },
+    { title:'Pawn Promotion', task:'Push your pawn to the last row to promote to a Queen!', fen:'8/4P3/8/8/8/8/4K3/k7 w - - 0 1', from:12, to:4, tip:'Reaching the 8th rank turns your pawn into a Queen!' }
+  ],
+  // Level 3: Strategist Tactics
+  [
+    { title:'Rook Battery Mate', task:'Slide your Rook down to h8 to deliver checkmate!', fen:'7k/6R1/5R2/8/8/8/8/4K3 w - - 0 1', from:21, to:7, tip:'Two rooks working together form a powerful attack.' },
+    { title:'Free Bishop Capture', task:'Capture the unprotected Black Bishop with your Pawn.', fen:'rnbqk1nr/pppp1ppp/8/4p3/1b1P4/5N2/PPP1PPPP/RNBQKB1R w KQkq - 0 1', from:51, to:35, tip:'Always look for undefended enemy pieces!' },
+    { title:'Smothered Mate', task:'Jump your Knight to f7 for a sudden checkmate!', fen:'6rk/5Npp/8/8/8/8/8/4K3 w - - 0 1', from:21, to:13, tip:'The king cannot escape because its own pieces block all exit squares.' }
+  ],
+  // Level 4: Sharp Tactics
+  [
+    { title:'Queen Pin', task:'Pin the enemy Queen to the King using your Bishop on g5.', fen:'rnb1kbnr/pppp1ppp/8/4q3/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1', from:61, to:31, tip:'A pinned piece cannot move without exposing its king.' },
+    { title:'Discovered Check', task:'Move your Bishop to capture on h7 and reveal check from your Queen!', fen:'r1bq1rk1/pppp1ppp/2n2n2/8/2B1PB2/2Q5/PPP2PPP/R3K2R w KQ - 0 1', from:34, to:15, tip:'Discovered attacks create two threats in a single turn.' },
+    { title:'Back-Rank Trapped King', task:'Move your Queen to d8 for a decisive back-rank mate.', fen:'3r2k1/5ppp/8/8/8/8/5PPP/3Q2K1 w - - 0 1', from:59, to:3, tip:'Guard the back rank or your king can get trapped.' }
+  ],
+  // Level 5: Master Tactics
+  [
+    { title:'Queen Sacrifice Mate', task:'Sacrifice your Queen on h7 to force checkmate!', fen:'r1bq1r1k/ppp2ppp/2n5/3np1N1/2B5/3P4/PPP2PPP/R2QK2R w KQ - 0 1', from:59, to:15, tip:'Sacrificing a high-value piece can tear open the king\'s protection.' },
+    { title:'Double Check Attack', task:'Move your Knight to e7 for a double check from Knight and Rook!', fen:'r1b2r1k/pppp1ppp/8/4N3/8/8/PPP1R3/4K3 w - - 0 1', from:28, to:12, tip:'Against a double check, the king MUST move.' },
+    { title:'Corner Trap Mate', task:'Move your Rook to a8 for the final checkmate!', fen:'k7/1R6/1K6/8/8/8/8/8 w - - 0 1', from:9, to:0, tip:'The king has nowhere left to run in the corner.' }
+  ]
 ];
 
-let puzzleIndex=0,puzzleActive=false;
-const modeBar=document.querySelector('.modes');
-const puzzleBtn=document.createElement('button');
-puzzleBtn.className='mode';
-puzzleBtn.dataset.mode='puzzles';
-puzzleBtn.textContent='🧩 Chess puzzles';
-modeBar.appendChild(puzzleBtn);
+let puzzleIndex = 0, puzzleActive = false;
 
-const panel=document.createElement('section');
-panel.className='panel';
-panel.id='puzzlePanel';
-panel.style.cssText='margin:0 0 18px;display:none';
-panel.innerHTML='<div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap"><div><h2 style="margin:0 0 5px">🧩 Puzzle Academy</h2><p id="puzzleTask" style="margin:0;color:#63796e">Solve each challenge to advance.</p></div><span class="pill" id="puzzleProgress" style="color:#225c49;border-color:#d6e4d9">Level 1 · Puzzle 1/3</span></div><div class="tip"><b id="puzzleTitle">Your challenge</b><span id="puzzleFeedback">Choose the winning move on the board.</span></div><div class="controls"><button class="btn secondary" id="puzzleHint">💡 Hint</button><button class="btn" id="puzzleNext" disabled>Next puzzle →</button><button class="btn secondary" id="puzzleReset">Restart puzzle</button></div>';
-document.querySelector('.main').before(panel);
-
-function getPuzzle(){
-  let lvlIdx = Math.max(0, Math.min(4, level - 1));
-  return puzzleSets[lvlIdx][puzzleIndex];
+function getPuzzle() {
+  let lvlIndex = Math.max(0, Math.min(4, level - 1));
+  return puzzleSets[lvlIndex][puzzleIndex];
 }
 
-function loadPuzzle(){
-  puzzleActive=true;
-  selected=-1;
-  const p=getPuzzle();
-  s=parseFEN(p.fen);
-  moveHistory=[];
-  lastMove=null;
-  matchOver=false;
-  document.getElementById('puzzleTitle').textContent=p.title;
-  document.getElementById('puzzleTask').textContent=p.task;
-  document.getElementById('puzzleFeedback').textContent='Find the winning move for White.';
-  document.getElementById('puzzleProgress').textContent='Level '+level+' · Puzzle '+(puzzleIndex+1)+'/3';
-  document.getElementById('puzzleNext').disabled=true;
+window.loadPuzzle = function() {
+  puzzleActive = true;
+  selected = -1;
+  const p = getPuzzle();
+  
+  s = parseFEN(p.fen);
+  moveHistory = [];
+  lastMove = null;
+  matchOver = false;
+  isComputerThinking = false;
+
+  document.getElementById('puzzleTitle').textContent = p.title;
+  document.getElementById('puzzleTask').textContent = p.task;
+  document.getElementById('puzzleFeedback').textContent = 'Select your piece, then click the target square.';
+  document.getElementById('puzzleProgress').textContent = 'Level ' + level + ' · Puzzle ' + (puzzleIndex + 1) + '/3';
+  document.getElementById('puzzleNext').disabled = true;
+  document.getElementById('puzzleNext').textContent = puzzleIndex === 2 ? (level === 5 ? 'Finish Puzzles 🎉' : 'Unlock Next Level →') : 'Next Puzzle →';
+  
   render();
-}
+};
 
-window.reloadCurrentPuzzle=function(){ if(mode==='puzzles') loadPuzzle(); };
+const originalClickSquare = clickSquare;
 
-function showPuzzles(){
-  mode='puzzles';
-  puzzleActive=true;
-  document.querySelectorAll('.mode').forEach(b=>b.classList.toggle('active',b===puzzleBtn));
-  panel.style.display='block';
-  document.getElementById('onlineNote').classList.add('hidden');
-  document.getElementById('sideTitle').textContent='Puzzle practice';
-  document.getElementById('sideDesc').textContent='Solve each challenge to advance your skills.';
-  loadPuzzle();
-  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
-}
+clickSquare = function(i) {
+  if (!puzzleActive || mode !== 'puzzles') return originalClickSquare(i);
+  if (document.getElementById('puzzleNext').disabled === false) return; // Already solved
 
-puzzleBtn.onclick=showPuzzles;
+  let moves = legal(s);
+  legalMoves = moves;
 
-const originalClickSquare=clickSquare;
-clickSquare=function(i){
-  if(!puzzleActive||mode!=='puzzles') return originalClickSquare(i);
-  if(!document.getElementById('puzzleNext').disabled) return;
-
-  if(selected>=0){
-    const moves = legal(s);
-    const m = moves.find(x=>x.f===selected&&x.t===i);
+  if (selected >= 0) {
+    let m = moves.find(x => x.f === selected && x.t === i);
     const p = getPuzzle();
-    if(m){
-      if(m.f===p.from && m.t===p.to){
+
+    if (m) {
+      if (m.f === p.from && m.t === p.to) {
         push(m);
-        document.getElementById('puzzleFeedback').textContent='Correct! '+p.tip;
-        document.getElementById('puzzleNext').disabled=false;
-        document.getElementById('coach').innerHTML='<b>🌟 Great move!</b><span>'+p.tip+'</span>';
-      }else{
-        document.getElementById('puzzleFeedback').textContent='Not quite—try again. Look closely at the board!';
-        selected=-1;
+        document.getElementById('puzzleFeedback').textContent = '🌟 Correct! ' + p.tip;
+        document.getElementById('puzzleNext').disabled = false;
+        document.getElementById('coach').innerHTML = '<b>🌟 Brilliant Move!</b><span>' + p.tip + '</span>';
+      } else {
+        document.getElementById('puzzleFeedback').textContent = 'Not quite—try another move! Look for the hint if you need help.';
+        selected = -1;
         render();
       }
       return;
     }
   }
-  if(color(s.b[i])===s.turn){selected=i;render();return;}
-  selected=-1;render();
+
+  if (color(s.b[i]) === s.turn) {
+    selected = i;
+    render();
+    return;
+  }
+  selected = -1;
+  render();
 };
 
-document.getElementById('puzzleHint').onclick=()=>{
-  const p=getPuzzle();
-  document.getElementById('puzzleFeedback').textContent='Hint: Move the piece on '+sqName(p.from)+' to '+sqName(p.to)+'.';
+document.getElementById('puzzleHint').onclick = () => {
+  const p = getPuzzle();
+  document.getElementById('puzzleFeedback').textContent = '💡 Hint: Move the piece from ' + sqName(p.from) + ' to ' + sqName(p.to) + '. ' + p.tip;
 };
 
-document.getElementById('puzzleNext').onclick=()=>{
-  if(document.getElementById('puzzleNext').disabled) return;
-  if(puzzleIndex < 2){
+document.getElementById('puzzleNext').onclick = () => {
+  if (document.getElementById('puzzleNext').disabled) return;
+  if (puzzleIndex < 2) {
     puzzleIndex++;
-    loadPuzzle();
+    window.loadPuzzle();
     return;
   }
-  if(level < 5){
+  if (level < 5) {
     level++;
-    puzzleIndex=0;
-    document.getElementById('difficulty').value=level;
+    puzzleIndex = 0;
+    document.getElementById('difficulty').value = level;
     updateStats();
-    loadPuzzle();
-    document.getElementById('puzzleFeedback').textContent='Level cleared! Welcome to Level '+level+' puzzles.';
+    window.loadPuzzle();
+    document.getElementById('puzzleFeedback').textContent = '🎉 Level cleared! Welcome to Level ' + level + ' puzzles.';
     return;
   }
-  document.getElementById('puzzleFeedback').textContent='Congratulations! You cleared all grandmaster puzzles!';
-  document.getElementById('puzzleNext').disabled=true;
-  document.getElementById('puzzleTitle').textContent='Puzzle Champion!';
+  document.getElementById('puzzleFeedback').textContent = '🏆 Congratulations! You solved all Little Grandmasters puzzle challenges!';
+  document.getElementById('puzzleNext').disabled = true;
+  document.getElementById('puzzleTitle').textContent = 'Puzzle Champion!';
 };
 
-document.getElementById('puzzleReset').onclick=loadPuzzle;
-
-const originalSetMode=setMode;
-setMode=function(m){
-  if(m==='puzzles'){showPuzzles();return;}
-  puzzleActive=false;
-  panel.style.display='none';
-  originalSetMode(m);
-};
-
-const originalNewGame=newGame;
-newGame=function(){
-  if(mode==='puzzles'){loadPuzzle();return;}
-  originalNewGame();
-};
+document.getElementById('puzzleReset').onclick = () => window.loadPuzzle();
 })();
 </script>
 </body>
 </html>
-```
-
-### Summary of fixes:
-- **`index.html` file:** Ready to download and replace directly on your GitHub repository.
-- **iPhone Blue Color issue:** Fixed via explicit `-webkit-text-fill-color` and custom CSS classes.
-- **Puzzles:** Now load custom reduced-piece positions that do not lock or freeze up.
-- **Tutorial Mode:** Fully responsive with active computer moves and teaching guidance.
