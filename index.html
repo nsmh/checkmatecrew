@@ -47,7 +47,7 @@ body{margin:0;font-family:var(--site-font-body);background:light-dark(#f4f7f2,#1
 .sq .coord{position:absolute;left:4px;top:2px;font-size:10px;font-weight:800;color:#173c2a;opacity:.7}
 
 .controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
-.btn{border:0;border-radius:12px;padding:11px 14px;background:#225c49;color:white;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
+.btn{border:0;border-radius:12px;padding:11px 14px;background:#225c49;color:white;font:inherit;font-size:13px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
 .btn.secondary{background:#e7f2e9;color:#285440}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .sidepanel h2{margin:0 0 6px;font-size:21px}
@@ -71,12 +71,11 @@ body{margin:0;font-family:var(--site-font-body);background:light-dark(#f4f7f2,#1
 .modalbox .btn{width:100%;padding:14px}
 
 /* Video grid section */
-.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:16px}
-.video-card{background:#f8fcf9;border:1px solid #dbe8de;border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
-.video-card iframe{width:100%;aspect-ratio:16/9;border:0}
-.video-body{padding:14px;display:flex;flex-direction:column;flex:1}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:16px}
+.video-card{background:#f8fcf9;border:1px solid #dbe8de;border-radius:16px;padding:16px;display:flex;flex-direction:column;justify-content:space-between}
 .video-card h3{margin:0 0 6px;font-size:16px;color:#183d30}
-.video-card p{margin:0 0 12px;font-size:13px;color:#536d60;line-height:1.4;flex:1}
+.video-card p{margin:0 0 14px;font-size:13px;color:#536d60;line-height:1.4}
+.video-actions{display:flex;gap:8px;flex-wrap:wrap}
 
 @media(max-width:760px){
   .top{padding:17px 18px}
@@ -153,42 +152,50 @@ body{margin:0;font-family:var(--site-font-body);background:light-dark(#f4f7f2,#1
 <!-- Strategy / Video Section -->
 <section class="panel hidden" id="videoPanel" style="margin-bottom:18px">
   <h2 style="margin:0 0 6px">📹 Chess Techniques & Video Lessons</h2>
-  <p style="margin:0 0 16px;color:#63796e">Short tactics, tricks, and opening shortcuts to level up your game.</p>
+  <p style="margin:0 0 16px;color:#63796e">Click below to watch quick technique lessons on YouTube or try the setup right on your board!</p>
   
   <div class="video-grid">
     <div class="video-card">
-      <iframe src="https://www.youtube-nocookie.com/embed/ST3P12_IInI" title="Basic Chess Tactics" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      <div class="video-body">
+      <div>
         <h3>1. The Fork Technique</h3>
         <p>Attack two enemy pieces at the exact same time using a Knight or Pawn!</p>
-        <button class="btn secondary" onclick="loadLessonBoard('r1bqk2r/ppp2ppp/2n5/3np3/2B5/3P1N2/PPP2PPP/R1BQK2R w KQkq - 0 1')">🎯 Try setup on board</button>
+      </div>
+      <div class="video-actions">
+        <a class="btn" href="https://www.youtube.com/watch?v=ST3P12_IInI" target="_blank" rel="noopener">▶ Watch on YouTube</a>
+        <button class="btn secondary" onclick="loadLessonBoard('r1bqk2r/ppp2ppp/2n5/3np3/2B5/3P1N2/PPP2PPP/R1BQK2R w KQkq - 0 1')">🎯 Try on board</button>
       </div>
     </div>
     
     <div class="video-card">
-      <iframe src="https://www.youtube-nocookie.com/embed/S2p2fE4aXm0" title="Pins and Skewers" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      <div class="video-body">
+      <div>
         <h3>2. Pins & Skewers</h3>
         <p>Freeze valuable pieces so they cannot move without losing something bigger.</p>
-        <button class="btn secondary" onclick="loadLessonBoard('r1b1k2r/pppp1ppp/8/4p3/1B1q4/8/PPP2PPP/R3K2R w KQkq - 0 1')">🎯 Try setup on board</button>
+      </div>
+      <div class="video-actions">
+        <a class="btn" href="https://www.youtube.com/watch?v=S2p2fE4aXm0" target="_blank" rel="noopener">▶ Watch on YouTube</a>
+        <button class="btn secondary" onclick="loadLessonBoard('r1b1k2r/pppp1ppp/8/4p3/1B1q4/8/PPP2PPP/R3K2R w KQkq - 0 1')">🎯 Try on board</button>
       </div>
     </div>
 
     <div class="video-card">
-      <iframe src="https://www.youtube-nocookie.com/embed/3qA8P9Q4dGg" title="Scholar's Mate" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      <div class="video-body">
+      <div>
         <h3>3. Fast Checkmate Traps</h3>
         <p>Learn how to defend against the 4-move Scholar's Mate trap!</p>
-        <button class="btn secondary" onclick="loadLessonBoard('r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1')">🎯 Try setup on board</button>
+      </div>
+      <div class="video-actions">
+        <a class="btn" href="https://www.youtube.com/watch?v=3qA8P9Q4dGg" target="_blank" rel="noopener">▶ Watch on YouTube</a>
+        <button class="btn secondary" onclick="loadLessonBoard('r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1')">🎯 Try on board</button>
       </div>
     </div>
 
     <div class="video-card">
-      <iframe src="https://www.youtube-nocookie.com/embed/L1d4T8aX3sA" title="How to Castle" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      <div class="video-body">
+      <div>
         <h3>4. Castle for King Safety</h3>
         <p>Tuck your King safely into the corner and bring your Rook into the action.</p>
-        <button class="btn secondary" onclick="loadLessonBoard('r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 1')">🎯 Try setup on board</button>
+      </div>
+      <div class="video-actions">
+        <a class="btn" href="https://www.youtube.com/watch?v=L1d4T8aX3sA" target="_blank" rel="noopener">▶ Watch on YouTube</a>
+        <button class="btn secondary" onclick="loadLessonBoard('r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 1')">🎯 Try on board</button>
       </div>
     </div>
   </div>
@@ -288,7 +295,6 @@ body{margin:0;font-family:var(--site-font-body);background:light-dark(#f4f7f2,#1
 const glyph = {K:'♔',Q:'♕',R:'♖',B:'♗',N:'♘',P:'♙',k:'♚',q:'♛',r:'♜',b:'♝',n:'♞',p:'♟'};
 const files = 'abcdefgh';
 
-/* Piece-Square Position Evaluation Tables */
 const pstPawn = [
   0,  0,  0,  0,  0,  0,  0,  0,
   50, 50, 50, 50, 50, 50, 50, 50,
@@ -504,7 +510,6 @@ function push(m) {
     return;
   }
 
-  // Kid-friendly AI Move Delay
   if ((mode === 'computer' || mode === 'tutorial') && s.turn === 'b') {
     aiThinking = true;
     document.getElementById('turn').textContent = '🤖 Computer is thinking...';
@@ -512,7 +517,6 @@ function push(m) {
   }
 }
 
-/* Multi-tier Advanced AI Evaluation Engine */
 function score(pos) {
   let vals = { p: 100, n: 320, b: 330, r: 500, q: 900, k: 20000 }, sum = 0;
   for (let i = 0; i < 64; i++) {
@@ -521,13 +525,10 @@ function score(pos) {
     let isWhite = color(piece) === 'w';
     let t = piece.toLowerCase();
     let val = vals[t] || 0;
-    
-    // Positional bonuses
     let pidx = isWhite ? i : (63 - i);
     if (t === 'p') val += pstPawn[pidx];
     else if (t === 'n') val += pstKnight[pidx];
     else if (t === 'b') val += pstBishop[pidx];
-
     sum += isWhite ? val : -val;
   }
   return sum;
@@ -563,25 +564,21 @@ function computerMove() {
   if ((mode !== 'computer' && mode !== 'tutorial') || s.turn !== 'b' || matchOver) return;
   let ms = legal(s);
   if (!ms.length) return;
-  
   let bestM = null;
 
   if (level <= 3) {
-    // Beginner: Slight tactical awareness with random mistakes
     let candidates = ms.map(m => ({
       m,
       v: score(apply(s, m)) + (Math.random() - 0.5) * (level === 1 ? 600 : level === 2 ? 300 : 150)
     })).sort((a, b) => a.v - b.v);
     bestM = candidates[0].m;
   } else if (level <= 6) {
-    // Intermediate: 1-Ply minimax evaluation with small variance
     let candidates = ms.map(m => ({
       m,
       v: score(apply(s, m)) + (Math.random() - 0.5) * (level === 4 ? 80 : level === 5 ? 40 : 10)
     })).sort((a, b) => a.v - b.v);
     bestM = candidates[0].m;
   } else {
-    // Advanced/Master (Levels 7-10): Minimax calculation (Search Depth 2 to 3 ply)
     let searchDepth = level >= 9 ? 3 : 2;
     let minVal = Infinity;
     for (let m of ms) {
@@ -626,13 +623,10 @@ function render() {
     if (p !== '.') btn.classList.add(color(p) === 'w' ? 'sq-w' : 'sq-b');
     btn.setAttribute('aria-label', sqName(i) + ' ' + (p === '.' ? 'empty' : p));
     if (selected === i) btn.classList.add('selected');
-    
-    // Highlight last computer/opponent move for clarity
     if (lastMove) {
       if (i === lastMove.f) btn.classList.add('last-from');
       if (i === lastMove.t) btn.classList.add('last-to');
     }
-
     btn.innerHTML = (i % 8 === 0 ? '<span class="coord">' + (8 - (i >> 3)) + '</span>' : '') + (p === '.' ? '' : glyph[p]);
     btn.onclick = () => clickSquare(i);
     board.appendChild(btn);
@@ -681,187 +675,4 @@ function updateStats() {
 
 function newGame() {
   s = initial();
-  moveHistory = []; selected = -1; lastMove = null; matchOver = false; aiThinking = false;
-  document.getElementById('sideTitle').textContent = mode === 'friend' ? 'Your board is ready!' : 'Ready to play?';
-  document.getElementById('sideDesc').textContent = mode === 'tutorial' ? 'Try a move, then use hints or play against the AI coach.' : 'Try to control the centre and keep your pieces safe.';
-  document.getElementById('coach').innerHTML = '<b>💡 Coach\'s tip</b><span>Start by moving a centre pawn. It helps your pieces find good squares.</span>';
-  render();
-}
-
-function loadLessonBoard(fen) {
-  s = loadFEN(fen);
-  moveHistory = []; selected = -1; lastMove = null; matchOver = false;
-  document.getElementById('puzzlePanel').classList.add('hidden');
-  document.getElementById('videoPanel').classList.add('hidden');
-  document.getElementById('sideTitle').textContent = 'Lesson Practice';
-  document.getElementById('sideDesc').textContent = 'Practice this special position against the computer!';
-  render();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function setMode(m) {
-  mode = m;
-  document.querySelectorAll('.mode').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
-  document.getElementById('onlineNote').classList.toggle('hidden', m !== 'friend');
-  document.getElementById('puzzlePanel').classList.toggle('hidden', m !== 'puzzles');
-  document.getElementById('videoPanel').classList.toggle('hidden', m !== 'videos');
-  
-  if (m !== 'puzzles' && m !== 'videos') newGame();
-}
-
-document.querySelectorAll('.mode').forEach(b => b.onclick = () => setMode(b.dataset.mode));
-document.getElementById('restart').onclick = newGame;
-document.getElementById('flip').onclick = () => { flipped = !flipped; render(); };
-document.getElementById('undo').onclick = () => {
-  if (!moveHistory.length || aiThinking) return;
-  let h = moveHistory.pop(); s = h.s; lastMove = h.lastMove; matchOver = h.matchOver;
-  if ((mode === 'computer' || mode === 'tutorial') && s.turn === 'b' && moveHistory.length) {
-    h = moveHistory.pop(); s = h.s; lastMove = h.lastMove; matchOver = h.matchOver;
-  }
-  selected = -1; render();
-};
-
-document.getElementById('hint').onclick = () => {
-  let m = bestMove();
-  if (!m) return;
-  selected = m.f; render();
-  document.getElementById('coach').innerHTML = '<b>✨ Suggested move: ' + sqName(m.f) + ' → ' + sqName(m.t) + '</b><span>Look for moves that develop a piece, protect your king, or capture undefended material.</span>';
-};
-
-document.getElementById('age').onchange = e => {
-  age = +e.target.value;
-  // Automatically adjust default recommended difficulty level when age group changes
-  if (age <= 5) level = 1;
-  else if (age <= 7) level = 3;
-  else if (age <= 9) level = 5;
-  else if (age <= 12) level = 7;
-  else level = 9;
-  
-  document.getElementById('difficulty').value = level;
-  updateStats(); newGame();
-};
-
-document.getElementById('difficulty').onchange = e => { level = +e.target.value; updateStats(); newGame(); };
-
-document.getElementById('start').onclick = () => {
-  const chosenName = document.getElementById('welcomeName').value || 'Little Knight';
-  const chosenAge = +document.getElementById('welcomeAge').value;
-  
-  document.getElementById('nickname').value = chosenName;
-  document.getElementById('age').value = chosenAge;
-  
-  // Set starting level automatically based on chosen age
-  if (chosenAge <= 5) level = 1;
-  else if (chosenAge <= 7) level = 3;
-  else if (chosenAge <= 9) level = 5;
-  else if (chosenAge <= 12) level = 7;
-  else level = 9;
-  
-  document.getElementById('difficulty').value = level;
-  document.getElementById('welcome').classList.add('hidden');
-  newGame();
-};
-</script>
-
-<script>
-/* Level-based chess puzzles with FEN support & responsive movement */
-(() => {
-const puzzleSets = [
- [
-   { title: 'Back Rank Mate', task: 'Checkmate the Black King on the back rank.', fen: '6k1/5ppp/8/8/8/8/8/R3K3 w - - 0 1', from: 56, to: 0, tip: 'Rook to a8 delivers checkmate!' },
-   { title: 'Center Opening', task: 'Advance your King pawn two squares.', fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', from: 52, to: 36, tip: 'e4 gains central control.' },
-   { title: 'Smothered Mate', task: 'Deliver checkmate with your Knight!', fen: '6rk/5Npp/8/8/8/8/8/4K3 w - - 0 1', from: 13, to: 13, tip: 'The knight locks the King in place!' }
- ],
- [
-   { title: 'Fork the Rooks', task: 'Move your Knight to fork both Rooks.', fen: 'r3r1k1/8/8/3N4/8/8/8/4K3 w - - 0 1', from: 27, to: 12, tip: 'Nf6+ attacks King and Rook!' },
-   { title: 'Free Bishop', task: 'Capture the undefended Bishop.', fen: 'r1bqk2r/pppp1ppp/2n5/4b3/4P3/5N2/PPP2PPP/R1BQKB1R w KQkq - 0 1', from: 21, to: 28, tip: 'Nxe5 wins material!' },
-   { title: 'Castle Safely', task: 'Castle kingside to protect your King.', fen: 'r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 1', from: 60, to: 62, tip: 'O-O tucks your king away.' }
- ],
- [
-   { title: 'Ladder Mate', task: 'Deliver checkmate with your two Rooks.', fen: '7k/8/R7/8/8/8/R7/4K3 w - - 0 1', from: 48, to: 16, tip: 'Ra8# seals the match!' },
-   { title: 'Pawn Promotion', task: 'Push your pawn to become a Queen!', fen: '8/4P3/8/3k4/8/8/8/4K3 w - - 0 1', from: 12, to: 4, tip: 'Promote on e8!' },
-   { title: 'Queen Trade', task: 'Win the enemy Queen.', fen: '3q4/8/8/8/3Q4/8/8/4K3 w - - 0 1', from: 27, to: 3, tip: 'Qxd8 takes the queen!' }
- ],
- [
-   { title: 'Scholar Trap Defense', task: 'Block the attack on f7.', fen: 'r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR b KQkq - 0 1', from: 10, to: 18, tip: 'Nf6 blocks the Queen.' },
-   { title: 'Pin the Queen', task: 'Pin the enemy Queen to the King.', fen: '4k3/8/8/3q4/8/8/4R3/4K3 w - - 0 1', from: 52, to: 36, tip: 'Re5 pins the Queen!' },
-   { title: 'Back Rank Protection', task: 'Move a pawn to create air for your King.', fen: '6k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 1', from: 53, to: 45, tip: 'h3 prevents back rank mates.' }
- ],
- [
-   { title: 'Master Skewer', task: 'Skewer the King and Rook!', fen: '4k3/8/8/8/8/8/1R6/1R2K3 w - - 0 1', from: 49, to: 9, tip: 'Rb8+ skewers!' },
-   { title: 'Knight Sacrifice', task: 'Deliver checkmate in 1 move.', fen: '5rk1/5p1p/8/8/8/8/5Q2/6K1 w - - 0 1', from: 53, to: 21, tip: 'Qg4# checkmates!' },
-   { title: 'Grandmaster Finale', task: 'Deliver checkmate with Queen and Bishop.', fen: '6rk/5ppp/8/8/2B5/8/5Q2/6K1 w - - 0 1', from: 53, to: 13, tip: 'Qxf7# checkmates!' }
- ]
-];
-
-let puzzleIndex = 0, puzzleActive = false;
-
-function currentPuzzle() {
-  const lev = Math.min(Math.max(Math.floor((level - 1) / 2), 0), 4);
-  return puzzleSets[lev][puzzleIndex];
-}
-
-function loadPuzzle() {
-  puzzleActive = true;
-  selected = -1;
-  const p = currentPuzzle();
-  s = loadFEN(p.fen);
-  moveHistory = []; lastMove = null; matchOver = false;
-  
-  document.getElementById('puzzleTitle').textContent = p.title;
-  document.getElementById('puzzleTask').textContent = p.task;
-  document.getElementById('puzzleFeedback').textContent = 'Select a piece, then its destination square.';
-  document.getElementById('puzzleProgress').textContent = 'Level ' + level + ' · Puzzle ' + (puzzleIndex + 1) + '/3';
-  document.getElementById('puzzleNext').disabled = true;
-  document.getElementById('puzzleNext').textContent = puzzleIndex === 2 ? 'Unlock Next Level →' : 'Next puzzle →';
-  render();
-}
-
-const origClickSquare = clickSquare;
-clickSquare = function(i) {
-  if (!puzzleActive || mode !== 'puzzles') return origClickSquare(i);
-  if (document.getElementById('puzzleNext').disabled === false) return;
-
-  if (selected >= 0) {
-    const m = legalMoves.find(x => x.f === selected && x.t === i);
-    if (m) {
-      const p = currentPuzzle();
-      if (m.f === p.from && m.t === p.to) {
-        push(m);
-        document.getElementById('puzzleFeedback').textContent = '🌟 Correct! ' + p.tip;
-        document.getElementById('puzzleNext').disabled = false;
-      } else {
-        document.getElementById('puzzleFeedback').textContent = 'Not quite—try again. Look closely at the board!';
-        selected = -1; render();
-      }
-      return;
-    }
-  }
-  if (color(s.b[i]) === s.turn) { selected = i; render(); return; }
-  selected = -1; render();
-};
-
-document.getElementById('puzzleHint').onclick = () => {
-  const p = currentPuzzle();
-  document.getElementById('puzzleFeedback').textContent = 'Hint: Move from ' + sqName(p.from) + ' to ' + sqName(p.to) + '. ' + p.tip;
-};
-
-document.getElementById('puzzleNext').onclick = () => {
-  if (puzzleIndex < 2) {
-    puzzleIndex++;
-    loadPuzzle();
-  } else if (level < 10) {
-    level++;
-    puzzleIndex = 0;
-    document.getElementById('difficulty').value = level;
-    loadPuzzle();
-  } else {
-    document.getElementById('puzzleFeedback').textContent = '🎉 Grandmaster status achieved! All puzzles cleared.';
-  }
-};
-
-document.getElementById('puzzleReset').onclick = loadPuzzle;
-})();
-</script>
-</body>
-</html>
+  move
