@@ -675,4 +675,185 @@ function updateStats() {
 
 function newGame() {
   s = initial();
-  move
+  moveHistory = []; selected = -1; lastMove = null; matchOver = false; aiThinking = false;
+  document.getElementById('sideTitle').textContent = mode === 'friend' ? 'Your board is ready!' : 'Ready to play?';
+  document.getElementById('sideDesc').textContent = mode === 'tutorial' ? 'Try a move, then use hints or play against the AI coach.' : 'Try to control the centre and keep your pieces safe.';
+  document.getElementById('coach').innerHTML = '<b>💡 Coach\'s tip</b><span>Start by moving a centre pawn. It helps your pieces find good squares.</span>';
+  render();
+}
+
+function loadLessonBoard(fen) {
+  s = loadFEN(fen);
+  moveHistory = []; selected = -1; lastMove = null; matchOver = false;
+  document.getElementById('puzzlePanel').classList.add('hidden');
+  document.getElementById('videoPanel').classList.add('hidden');
+  document.getElementById('sideTitle').textContent = 'Lesson Practice';
+  document.getElementById('sideDesc').textContent = 'Practice this special position against the computer!';
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mode').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+  document.getElementById('onlineNote').classList.toggle('hidden', m !== 'friend');
+  document.getElementById('puzzlePanel').classList.toggle('hidden', m !== 'puzzles');
+  document.getElementById('videoPanel').classList.toggle('hidden', m !== 'videos');
+  
+  if (m !== 'puzzles' && m !== 'videos') newGame();
+}
+
+document.querySelectorAll('.mode').forEach(b => b.onclick = () => setMode(b.dataset.mode));
+document.getElementById('restart').onclick = newGame;
+document.getElementById('flip').onclick = () => { flipped = !flipped; render(); };
+document.getElementById('undo').onclick = () => {
+  if (!moveHistory.length || aiThinking) return;
+  let h = moveHistory.pop(); s = h.s; lastMove = h.lastMove; matchOver = h.matchOver;
+  if ((mode === 'computer' || mode === 'tutorial') && s.turn === 'b' && moveHistory.length) {
+    h = moveHistory.pop(); s = h.s; lastMove = h.lastMove; matchOver = h.matchOver;
+  }
+  selected = -1; render();
+};
+
+document.getElementById('hint').onclick = () => {
+  let m = bestMove();
+  if (!m) return;
+  selected = m.f; render();
+  document.getElementById('coach').innerHTML = '<b>✨ Suggested move: ' + sqName(m.f) + ' → ' + sqName(m.t) + '</b><span>Look for moves that develop a piece, protect your king, or capture undefended material.</span>';
+};
+
+document.getElementById('age').onchange = e => {
+  age = +e.target.value;
+  if (age <= 5) level = 1;
+  else if (age <= 7) level = 3;
+  else if (age <= 9) level = 5;
+  else if (age <= 12) level = 7;
+  else level = 9;
+  
+  document.getElementById('difficulty').value = level;
+  updateStats(); newGame();
+};
+
+document.getElementById('difficulty').onchange = e => { level = +e.target.value; updateStats(); newGame(); };
+
+document.getElementById('start').onclick = () => {
+  const chosenName = document.getElementById('welcomeName').value || 'Little Knight';
+  const chosenAge = +document.getElementById('welcomeAge').value;
+  
+  document.getElementById('nickname').value = chosenName;
+  document.getElementById('age').value = chosenAge;
+  
+  if (chosenAge <= 5) level = 1;
+  else if (chosenAge <= 7) level = 3;
+  else if (chosenAge <= 9) level = 5;
+  else if (chosenAge <= 12) level = 7;
+  else level = 9;
+  
+  document.getElementById('difficulty').value = level;
+  document.getElementById('welcome').classList.add('hidden');
+  newGame();
+};
+</script>
+
+<script>
+/* Level-based chess puzzles with FEN support & responsive movement */
+(() => {
+const puzzleSets = [
+ [
+   { title: 'Back Rank Mate', task: 'Checkmate the Black King on the back rank.', fen: '6k1/5ppp/8/8/8/8/8/R3K3 w - - 0 1', from: 56, to: 0, tip: 'Rook to a8 delivers checkmate!' },
+   { title: 'Center Opening', task: 'Advance your King pawn two squares.', fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', from: 52, to: 36, tip: 'e4 gains central control.' },
+   { title: 'Smothered Mate', task: 'Deliver checkmate with your Knight!', fen: '6rk/5Npp/8/8/8/8/8/4K3 w - - 0 1', from: 13, to: 13, tip: 'The knight locks the King in place!' }
+ ],
+ [
+   { title: 'Fork the Rooks', task: 'Move your Knight to fork both Rooks.', fen: 'r3r1k1/8/8/3N4/8/8/8/4K3 w - - 0 1', from: 27, to: 12, tip: 'Nf6+ attacks King and Rook!' },
+   { title: 'Free Bishop', task: 'Capture the undefended Bishop.', fen: 'r1bqk2r/pppp1ppp/2n5/4b3/4P3/5N2/PPP2PPP/R1BQKB1R w KQkq - 0 1', from: 21, to: 28, tip: 'Nxe5 wins material!' },
+   { title: 'Castle Safely', task: 'Castle kingside to protect your King.', fen: 'r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 1', from: 60, to: 62, tip: 'O-O tucks your king away.' }
+ ],
+ [
+   { title: 'Ladder Mate', task: 'Deliver checkmate with your two Rooks.', fen: '7k/8/R7/8/8/8/R7/4K3 w - - 0 1', from: 48, to: 16, tip: 'Ra8# seals the match!' },
+   { title: 'Pawn Promotion', task: 'Push your pawn to become a Queen!', fen: '8/4P3/8/3k4/8/8/8/4K3 w - - 0 1', from: 12, to: 4, tip: 'Promote on e8!' },
+   { title: 'Queen Trade', task: 'Win the enemy Queen.', fen: '3q4/8/8/8/3Q4/8/8/4K3 w - - 0 1', from: 27, to: 3, tip: 'Qxd8 takes the queen!' }
+ ],
+ [
+   { title: 'Scholar Trap Defense', task: 'Block the attack on f7.', fen: 'r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR b KQkq - 0 1', from: 10, to: 18, tip: 'Nf6 blocks the Queen.' },
+   { title: 'Pin the Queen', task: 'Pin the enemy Queen to the King.', fen: '4k3/8/8/3q4/8/8/4R3/4K3 w - - 0 1', from: 52, to: 36, tip: 'Re5 pins the Queen!' },
+   { title: 'Back Rank Protection', task: 'Move a pawn to create air for your King.', fen: '6k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 1', from: 53, to: 45, tip: 'h3 prevents back rank mates.' }
+ ],
+ [
+   { title: 'Master Skewer', task: 'Skewer the King and Rook!', fen: '4k3/8/8/8/8/8/1R6/1R2K3 w - - 0 1', from: 49, to: 9, tip: 'Rb8+ skewers!' },
+   { title: 'Knight Sacrifice', task: 'Deliver checkmate in 1 move.', fen: '5rk1/5p1p/8/8/8/8/5Q2/6K1 w - - 0 1', from: 53, to: 21, tip: 'Qg4# checkmates!' },
+   { title: 'Grandmaster Finale', task: 'Deliver checkmate with Queen and Bishop.', fen: '6rk/5ppp/8/8/2B5/8/5Q2/6K1 w - - 0 1', from: 53, to: 13, tip: 'Qxf7# checkmates!' }
+ ]
+];
+
+let puzzleIndex = 0, puzzleActive = false;
+
+function currentPuzzle() {
+  const lev = Math.min(Math.max(Math.floor((level - 1) / 2), 0), 4);
+  return puzzleSets[lev][puzzleIndex];
+}
+
+function loadPuzzle() {
+  puzzleActive = true;
+  selected = -1;
+  const p = currentPuzzle();
+  s = loadFEN(p.fen);
+  moveHistory = []; lastMove = null; matchOver = false;
+  
+  document.getElementById('puzzleTitle').textContent = p.title;
+  document.getElementById('puzzleTask').textContent = p.task;
+  document.getElementById('puzzleFeedback').textContent = 'Select a piece, then its destination square.';
+  document.getElementById('puzzleProgress').textContent = 'Level ' + level + ' · Puzzle ' + (puzzleIndex + 1) + '/3';
+  document.getElementById('puzzleNext').disabled = true;
+  document.getElementById('puzzleNext').textContent = puzzleIndex === 2 ? 'Unlock Next Level →' : 'Next puzzle →';
+  render();
+}
+
+const origClickSquare = clickSquare;
+clickSquare = function(i) {
+  if (!puzzleActive || mode !== 'puzzles') return origClickSquare(i);
+  if (document.getElementById('puzzleNext').disabled === false) return;
+
+  if (selected >= 0) {
+    const m = legalMoves.find(x => x.f === selected && x.t === i);
+    if (m) {
+      const p = currentPuzzle();
+      if (m.f === p.from && m.t === p.to) {
+        push(m);
+        document.getElementById('puzzleFeedback').textContent = '🌟 Correct! ' + p.tip;
+        document.getElementById('puzzleNext').disabled = false;
+      } else {
+        document.getElementById('puzzleFeedback').textContent = 'Not quite—try again. Look closely at the board!';
+        selected = -1; render();
+      }
+      return;
+    }
+  }
+  if (color(s.b[i]) === s.turn) { selected = i; render(); return; }
+  selected = -1; render();
+};
+
+document.getElementById('puzzleHint').onclick = () => {
+  const p = currentPuzzle();
+  document.getElementById('puzzleFeedback').textContent = 'Hint: Move from ' + sqName(p.from) + ' to ' + sqName(p.to) + '. ' + p.tip;
+};
+
+document.getElementById('puzzleNext').onclick = () => {
+  if (puzzleIndex < 2) {
+    puzzleIndex++;
+    loadPuzzle();
+  } else if (level < 10) {
+    level++;
+    puzzleIndex = 0;
+    document.getElementById('difficulty').value = level;
+    loadPuzzle();
+  } else {
+    document.getElementById('puzzleFeedback').textContent = '🎉 Grandmaster status achieved! All puzzles cleared.';
+  }
+};
+
+document.getElementById('puzzleReset').onclick = loadPuzzle;
+})();
+</script>
+</body>
+</html>
