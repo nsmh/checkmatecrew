@@ -157,11 +157,11 @@ body{margin:0;font-family:var(--site-font-body);background:light-dark(#f4f7f2,#1
   <div class="video-grid">
     <div class="video-card">
       <div>
-        <h3>1. The Fork Technique</h3>
+        <h3>1. The Center Fork Trick</h3>
         <p>Attack two enemy pieces at the exact same time using a Knight or Pawn!</p>
       </div>
       <div class="video-actions">
-        <a class="btn" href="https://www.youtube.com/watch?v=ST3P12_IInI" target="_blank" rel="noopener">▶ Watch on YouTube</a>
+        <a class="btn" href="https://www.youtube.com/watch?v=eIIkjtd61Zk" target="_blank" rel="noopener">▶ Watch on YouTube</a>
         <button class="btn secondary" onclick="loadLessonBoard('r1bqk2r/ppp2ppp/2n5/3np3/2B5/3P1N2/PPP2PPP/R1BQK2R w KQkq - 0 1')">🎯 Try on board</button>
       </div>
     </div>
@@ -172,29 +172,29 @@ body{margin:0;font-family:var(--site-font-body);background:light-dark(#f4f7f2,#1
         <p>Freeze valuable pieces so they cannot move without losing something bigger.</p>
       </div>
       <div class="video-actions">
-        <a class="btn" href="https://www.youtube.com/watch?v=S2p2fE4aXm0" target="_blank" rel="noopener">▶ Watch on YouTube</a>
+        <a class="btn" href="https://www.youtube.com/watch?v=gZm-1u5yHd0" target="_blank" rel="noopener">▶ Watch on YouTube</a>
         <button class="btn secondary" onclick="loadLessonBoard('r1b1k2r/pppp1ppp/8/4p3/1B1q4/8/PPP2PPP/R3K2R w KQkq - 0 1')">🎯 Try on board</button>
       </div>
     </div>
 
     <div class="video-card">
       <div>
-        <h3>3. Fast Checkmate Traps</h3>
-        <p>Learn how to defend against the 4-move Scholar's Mate trap!</p>
+        <h3>3. Punishing Scholar's Mate</h3>
+        <p>Learn how to defend against and punish early Queen attacks!</p>
       </div>
       <div class="video-actions">
-        <a class="btn" href="https://www.youtube.com/watch?v=3qA8P9Q4dGg" target="_blank" rel="noopener">▶ Watch on YouTube</a>
-        <button class="btn secondary" onclick="loadLessonBoard('r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1')">🎯 Try on board</button>
+        <a class="btn" href="https://www.youtube.com/watch?v=mZPbhxl2ark" target="_blank" rel="noopener">▶ Watch on YouTube</a>
+        <button class="btn secondary" onclick="loadLessonBoard('r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR b KQkq - 0 1')">🎯 Try on board</button>
       </div>
     </div>
 
     <div class="video-card">
       <div>
-        <h3>4. Castle for King Safety</h3>
+        <h3>4. How to Castle Safely</h3>
         <p>Tuck your King safely into the corner and bring your Rook into the action.</p>
       </div>
       <div class="video-actions">
-        <a class="btn" href="https://www.youtube.com/watch?v=L1d4T8aX3sA" target="_blank" rel="noopener">▶ Watch on YouTube</a>
+        <a class="btn" href="https://www.youtube.com/watch?v=CPS0c8iz9qQ" target="_blank" rel="noopener">▶ Watch on YouTube</a>
         <button class="btn secondary" onclick="loadLessonBoard('r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 1')">🎯 Try on board</button>
       </div>
     </div>
@@ -749,7 +749,6 @@ document.getElementById('start').onclick = () => {
   document.getElementById('difficulty').value = level;
   document.getElementById('welcome').classList.add('hidden');
   
-  // Switch back to computer mode and start clean game
   setMode('computer');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
